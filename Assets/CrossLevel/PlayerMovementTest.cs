@@ -2,14 +2,16 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerMovementTest : MonoBehaviour {
 
+    float playerSpeed = 10f;
+    [SerializeField] [Tooltip("Player's jump heigh number")] public float jumpHeight = 10f;
+
     Rigidbody2D rigidBody;
     float xThrow;
-    [SerializeField] [Tooltip("Player's speed tuning number")]public float speed = 10f;
-    [SerializeField] [Tooltip("Player's jump heigh number")]public float jumpHeight = 10f;
 
     bool jumped = false;
 
@@ -18,9 +20,14 @@ public class PlayerMovementTest : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
 	}
-	
-	// Update is called once per frame
-	void FixedUpdate () {
+
+    void Update()
+    {
+        playerSpeed = StatHolster.instance.moveSpeed;
+        print("Player movement speed = " + playerSpeed);
+    }
+
+    void FixedUpdate () {
         HorizontalMovement();
         Jumping();
 	}
@@ -48,7 +55,7 @@ public class PlayerMovementTest : MonoBehaviour {
     {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // Use horizontal cross-platform input
 
-        float horizontalMovement = xThrow * speed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
+        float horizontalMovement = xThrow * playerSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
         rigidBody.AddForce(Vector2.right * horizontalMovement);
     }
