@@ -113,6 +113,63 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1001 &430932703
+Prefab:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalPosition.x
+      value: 32.89
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -9.83
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+      propertyPath: m_RootOrder
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 61895002165013002, guid: c6215d7ff161c274ea08f243e3d71fda,
+        type: 2}
+      propertyPath: m_Offset.y
+      value: 0.16106099
+      objectReference: {fileID: 0}
+    - target: {fileID: 61895002165013002, guid: c6215d7ff161c274ea08f243e3d71fda,
+        type: 2}
+      propertyPath: m_Size.y
+      value: 0.47212195
+      objectReference: {fileID: 0}
+    - target: {fileID: 114522740693020046, guid: c6215d7ff161c274ea08f243e3d71fda,
+        type: 2}
+      propertyPath: jumpPadPower
+      value: 800
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c6215d7ff161c274ea08f243e3d71fda, type: 2}
+  m_IsPrefabAsset: 0
 --- !u!1 &532404516
 GameObject:
   m_ObjectHideFlags: 0
@@ -537,7 +594,7 @@ Prefab:
     - target: {fileID: 114983146673464958, guid: 8f9413c6859f1f043b6bef3d1c569998,
         type: 2}
       propertyPath: moveSpeed
-      value: 100000
+      value: 120000
       objectReference: {fileID: 0}
     - target: {fileID: 114921804771043026, guid: 8f9413c6859f1f043b6bef3d1c569998,
         type: 2}
@@ -547,12 +604,32 @@ Prefab:
     - target: {fileID: 50990944410966848, guid: 8f9413c6859f1f043b6bef3d1c569998,
         type: 2}
       propertyPath: m_GravityScale
-      value: 15
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 50990944410966848, guid: 8f9413c6859f1f043b6bef3d1c569998,
         type: 2}
       propertyPath: m_Mass
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921804771043026, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: jumpVelocity
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921804771043026, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: lowJumpMultiplier
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 114921804771043026, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: fallMultiplier
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 50990944410966848, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: m_SleepingMode
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}

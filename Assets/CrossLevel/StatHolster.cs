@@ -10,6 +10,8 @@ public class StatHolster : MonoBehaviour {
     // Access variables and functions from elsewhere with StatHolster.instance.variableOrFunctionName
 
     public float moveSpeed = 30000f;
+    public float jumpVelocity = 70f;
+    public int jumpCharges = 1;
 
     private void Awake() //singleton pattern setup
     {
@@ -26,23 +28,26 @@ public class StatHolster : MonoBehaviour {
         instance = this;
     }
 
-    void ValueChanger()
-    {
-        
-    }
 
-    public void AddMoveSpeed(float changeValue)
+    public void AddMoveSpeed(float changeValue) //Called from other classes to add to speed value
     {
         moveSpeed += changeValue;
     }
 
-    public void MultiplyMoveSpeed (float changeValue)
+    public void MultiplyMoveSpeed (float changeValue) //Called from other classes to multiplicatively add to speed value
     {
         moveSpeed *= changeValue;
     }
 
-    private void Update()
+    public void AddJumpSpeed(float changeValue) //Called from other classes to add to jump value
     {
-        ValueChanger();
+        jumpVelocity += changeValue;
     }
+
+    public void MultiplyJumpSpeed(float changeValue) //Called from other classes to multiplicatively add to jump value
+    {
+        jumpVelocity *= changeValue;
+    }
+
+
 }
