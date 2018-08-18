@@ -4,11 +4,19 @@ using UnityEngine;
 
 public class ItemHolster : ItemParent {
 
+    public static ItemHolster instance;
 
-
-    public void SpeedShoesItem()
+    public string PickItem()
     {
-        
+        string itemPicked;
+        itemPicked = "ItemTemplate";
+        return itemPicked;
     }
+
+    private void Awake()
+    {
+        instance = this;
+    }
+
 
 }
