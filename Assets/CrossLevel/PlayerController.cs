@@ -11,6 +11,7 @@ public class PlayerController : MonoBehaviour {
 
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
+    bool grounded;
 
     Rigidbody2D rigidBody;
     float xThrow;
@@ -93,6 +94,7 @@ public class PlayerController : MonoBehaviour {
         if (collision.gameObject.tag == "Floor")
         {
             jumpCharges = StatHolster.instance.jumpCharges;
+            grounded = true;
         }
     }
 
@@ -101,6 +103,7 @@ public class PlayerController : MonoBehaviour {
         if (collision.gameObject.tag == "Floor")
         {
             jumpCharges = StatHolster.instance.jumpCharges - 1;
+            grounded = false;
         }
     }
 
@@ -110,7 +113,18 @@ public class PlayerController : MonoBehaviour {
 
         float horizontalMovement = xThrow * playerSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
-        rigidBody.AddForce(Vector2.right * horizontalMovement);
+        if (grounded == true)
+        {
+            rigidBody.AddForce(Vector2.right * horizontalMovement);
+        }
+        else if (grounded == false)
+        {
+            rigidBody.AddForce(Vector2.right * horizontalMovement / 3); //Reduce horizontal movespeed while in the air
+        }
+        else
+        {
+            print("something went wrong and the jump bool isn't set.");
+        }
     }
 
     public void ForcedMovement(float verticalVelocity, float horizontalVelocity)

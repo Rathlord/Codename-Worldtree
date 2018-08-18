@@ -6,6 +6,7 @@ TagManager:
   tags:
   - Fire
   - Floor
+  - Item
   layers:
   - Default
   - TransparentFX
