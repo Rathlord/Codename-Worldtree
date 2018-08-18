@@ -2,15 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ItemHolster : ItemParent {
+public class ItemHolster : MonoBehaviour {
 
     public static ItemHolster instance;
 
-    public string PickItem()
+    public GameObject[] ItemList;
+
+    public GameObject RandomItemPicked()
     {
-        string itemPicked;
-        itemPicked = "ItemTemplate";
-        return itemPicked;
+        return ItemList[Random.Range(0, ItemList.Length)];
     }
 
     private void Awake()
