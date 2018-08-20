@@ -3,15 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
+    public Slider slider;
 
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
     bool grounded;
+    [SerializeField] float currentHealth = 1f;
+    [SerializeField] float enemyCollisionMagnitude = 100f;
+
+    public bool freezeControls = false;
 
     Rigidbody2D rigidBody;
     float xThrow;
@@ -25,7 +31,9 @@ public class PlayerController : MonoBehaviour {
     void Start () {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
+        currentHealth = StatHolster.instance.healthMaximum;
 	}
+    
 
     private void Awake()
     {
@@ -44,11 +52,16 @@ public class PlayerController : MonoBehaviour {
 
     void Update()
     {
+        UpdateHealthSlider();
         SetSpeed();
         SetJump();
-        BetterJumping();
+        print("Jump charges = " + jumpCharges);
     }
 
+    private void UpdateHealthSlider()
+    {
+        slider.value = currentHealth;
+    }
 
     private void SetJump()
     {
@@ -63,8 +76,8 @@ public class PlayerController : MonoBehaviour {
     void FixedUpdate () {
         HorizontalMovement();
         Jumping();
-   
-	}
+        BetterJumping();
+    }
 
     private void BetterJumping() //Increases fall speed and increases jump height when holding the jump button with clever physics
     {
@@ -89,13 +102,32 @@ public class PlayerController : MonoBehaviour {
          }
      } 
 
-    private void OnCollisionEnter2D(Collision2D collision) //Allow player to jump if they're on a floor
+    private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
     {
         if (collision.gameObject.tag == "Floor")
         {
             jumpCharges = StatHolster.instance.jumpCharges;
             grounded = true;
         }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Enemy")
+        {
+            rigidBody.velocity = new Vector2(0, 0);
+            freezeControls = true;
+            Invoke("Unfreeze", .4f);
+            Vector2 direction = collision.transform.position - gameObject.transform.position;
+            direction.Normalize();
+            print(direction);
+            rigidBody.AddForce(Vector2.right * -direction * enemyCollisionMagnitude, ForceMode2D.Impulse);
+        }
+    }
+
+    private void Unfreeze()
+    {
+        freezeControls = false;
     }
 
     private void OnCollisionExit2D(Collision2D collision) //Disallow jumping if player not on a floor
@@ -113,18 +145,26 @@ public class PlayerController : MonoBehaviour {
 
         float horizontalMovement = xThrow * playerSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
-        if (grounded == true)
+        if (freezeControls == false)
         {
-            rigidBody.AddForce(Vector2.right * horizontalMovement);
-        }
-        else if (grounded == false)
-        {
-            rigidBody.AddForce(Vector2.right * horizontalMovement / 3); //Reduce horizontal movespeed while in the air
+            if (grounded == true)
+            {
+                rigidBody.AddForce(Vector2.right * horizontalMovement);
+            }
+            else if (grounded == false)
+            {
+                rigidBody.AddForce(Vector2.right * horizontalMovement / 3); //Reduce horizontal movespeed while in the air
+            }
+            else
+            {
+                print("something went wrong and the jump bool isn't set.");
+            }
         }
         else
         {
-            print("something went wrong and the jump bool isn't set.");
+            return;
         }
+
     }
 
     public void ForcedMovement(float verticalVelocity, float horizontalVelocity)

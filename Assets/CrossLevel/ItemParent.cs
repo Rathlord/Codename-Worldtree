@@ -4,29 +4,42 @@ using UnityEngine;
 
 public class ItemParent : MonoBehaviour {
 
-    [SerializeField] Vector3 bounceAmount = new Vector3(0.0f,10f, 0.0f);
+    [SerializeField] Vector3 bounceAmount = new Vector3(0.0f,0.5f, 0.0f);
     [SerializeField] bool goingUp = true;
 
     Vector3 thisTransform;
     Vector3 highPoint;
     Vector3 lowPoint;
 
-    [SerializeField] float buffer = 0.01f;
+    [SerializeField] float buffer = 0.25f;
 
     public float smoothing = 1f;
 
     private void Start()
     {
+        SetBounceValues();
+        StartCoroutine(Floating());
+        Invoke("AddCollider", 1f);
+    }
+
+    private void AddCollider()
+    {
+        gameObject.AddComponent<BoxCollider2D>();
+        BoxCollider2D thisCollider = GetComponent<BoxCollider2D>();
+        thisCollider.isTrigger = true;
+    }
+
+    private void SetBounceValues()
+    {
         thisTransform = transform.position;
         highPoint = thisTransform + bounceAmount;
         lowPoint = thisTransform - bounceAmount;
-        StartCoroutine(Floating());
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         StopAllCoroutines();
-        //Object.Destroy(gameObject);
+        Object.Destroy(gameObject);
 
     }
 
