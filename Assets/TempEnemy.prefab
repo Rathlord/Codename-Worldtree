@@ -21,6 +21,8 @@ GameObject:
   - component: {fileID: 4221673722086094}
   - component: {fileID: 212670303086484444}
   - component: {fileID: 61863565101618342}
+  - component: {fileID: 50370747518176542}
+  - component: {fileID: 114097473162621762}
   m_Layer: 0
   m_Name: TempEnemy
   m_TagString: Enemy
@@ -35,12 +37,32 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1714214640799230}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 67.46, y: -6.3, z: 0}
+  m_LocalPosition: {x: 42.56, y: -4.52, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!50 &50370747518176542
+Rigidbody2D:
+  serializedVersion: 4
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714214640799230}
+  m_BodyType: 0
+  m_Simulated: 1
+  m_UseFullKinematicContacts: 0
+  m_UseAutoMass: 0
+  m_Mass: 4
+  m_LinearDrag: 8
+  m_AngularDrag: 1
+  m_GravityScale: 5
+  m_Material: {fileID: 0}
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+  m_Constraints: 0
 --- !u!61 &61863565101618342
 BoxCollider2D:
   m_ObjectHideFlags: 1
@@ -49,7 +71,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1714214640799230}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 130f27b0f1b1a0144be0b2c68e1271a2, type: 2}
+  m_Material: {fileID: 6200000, guid: 07cfa985e832c9e4ca8125ca4c60b1e5, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -66,6 +88,19 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1.7610779, y: 2.343112}
   m_EdgeRadius: 0
+--- !u!114 &114097473162621762
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1714214640799230}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53817d07e6de15745a2d6f296f13ea56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  attackDistance: 2
+  moveSpeed: 25000
 --- !u!212 &212670303086484444
 SpriteRenderer:
   m_ObjectHideFlags: 1

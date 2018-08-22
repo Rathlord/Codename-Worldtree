@@ -38,8 +38,12 @@ public class ItemParent : MonoBehaviour {
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        StopAllCoroutines();
-        Object.Destroy(gameObject);
+        if (collision.gameObject.tag == "Player")
+        {
+            StopAllCoroutines();
+            Object.Destroy(gameObject);
+        }
+
 
     }
 
@@ -48,18 +52,18 @@ public class ItemParent : MonoBehaviour {
         while (goingUp == true)
         {
             transform.position = Vector3.Lerp(transform.position, highPoint, smoothing * Time.deltaTime);
-            print("Lerped down");
+            //print("Lerped down");
             yield return null;
         }
 
         while (goingUp == false)
         {
             transform.position = Vector3.Lerp(transform.position, lowPoint, smoothing * Time.deltaTime);
-            print("Lerped up");
+            //print("Lerped up");
             yield return null;
         }
 
-        print("Didn't lerp");
+        // print("Didn't lerp");
         StartCoroutine(Floating());
     }
 

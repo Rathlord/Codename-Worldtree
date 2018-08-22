@@ -11,7 +11,8 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
     public Slider slider;
 
-    [SerializeField] Transform playterTransform;
+    [SerializeField] public Transform playerTransform;
+
 
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         UpdateHealthSlider();
         SetSpeed();
         SetJump();
-        print("Jump charges = " + jumpCharges);
+        // print("Jump charges = " + jumpCharges);
     }
 
     private void UpdateHealthSlider()
