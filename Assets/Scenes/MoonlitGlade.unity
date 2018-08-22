@@ -1444,9 +1444,19 @@ Prefab:
       propertyPath: m_Size.y
       value: 6.4165783
       objectReference: {fileID: 0}
+    - target: {fileID: 114621704942367760, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: playterTransform
+      value: 
+      objectReference: {fileID: 795660265}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
   m_IsPrefabAsset: 0
+--- !u!4 &795660265 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 4494834071937358, guid: 8f9413c6859f1f043b6bef3d1c569998,
+    type: 2}
+  m_PrefabInternal: {fileID: 795660264}
 --- !u!1001 &954883481
 Prefab:
   m_ObjectHideFlags: 0
@@ -2533,6 +2543,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1714214640799230, guid: 701d42269a91f7840a553be2ac0549b9,
     type: 2}
   m_PrefabInternal: {fileID: 1650507294}
+--- !u!114 &1752146537
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1752146536}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 53817d07e6de15745a2d6f296f13ea56, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!50 &1752146540
 Rigidbody2D:
   serializedVersion: 4

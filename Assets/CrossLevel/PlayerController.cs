@@ -11,6 +11,8 @@ public class PlayerController : MonoBehaviour {
     public static PlayerController instance;
     public Slider slider;
 
+    [SerializeField] Transform playterTransform;
+
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
     bool grounded;

@@ -4,13 +4,19 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    enum State { Approaching };
+    State currentState;
+
+    Transform playerPos = PlayerController.instance.playerTransform;
+
+	void Start () 
+    {
+
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    IEnumerator PositionCheck()
+    {
+        yield return null;
+    }
+
 }
