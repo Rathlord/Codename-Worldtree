@@ -39,15 +39,10 @@ public class EnemyBehavior : MonoBehaviour {
 
     void ActionSystem() //Checks the state of the enemy and starts the appropriate reaction
     {
-        if (currentState == State.Idling && isPatrolling == false) //If the enemy is in idle mode and isn't patrolling yet, set it to patrol
+        if (currentState != State.Idling && isPatrolling == true)  //If the enemy isn't idling and is patrolling, stop the patrolling coroutine
         {
-            isPatrolling = true;
-            StartCoroutine(Patrolling());
-            print("I should be patrolling");
-        }
-        else if (currentState != State.Idling && isPatrolling == true) //If the enemy isn't idling and is patrolling, stop the patrolling coroutine
-        {
-            StopCoroutine(Patrolling());
+            StopAllCoroutines();
+            StartCoroutine(PositionCheck());
             isPatrolling = false;
             print("I should stop patrolling");
         }
@@ -56,16 +51,24 @@ public class EnemyBehavior : MonoBehaviour {
             print("Actually moving Left");
             rigidBody.AddForce(Vector2.right * Time.deltaTime * -moveSpeed);
         }
-        if (currentState == State.ApproachingRight) //Move the enemy right if it should be chasing the player right
+        else if (currentState == State.ApproachingRight) //Move the enemy right if it should be chasing the player right
         {
             print("Actually moving Right");
             rigidBody.AddForce(Vector2.right * Time.deltaTime * moveSpeed);
         }
-        if (currentState == State.Attacking) //Stops the enemy to perform its attack when it should be attacking
+        else if (currentState == State.Attacking) //Stops the enemy to perform its attack when it should be attacking
         {
             rigidBody.velocity = new Vector2(0, 0);
             Attack();
         }
+        else if (currentState == State.Idling && isPatrolling == false) //If the enemy is in idle mode and isn't patrolling yet, set it to patrol
+        {
+            isPatrolling = true;
+            StartCoroutine(Patrolling());
+            print("I should be patrolling");
+        }
+
+
     }
 
    IEnumerator Patrolling() //Begin patrolling to the right, wait for two seconds, stop patrolling right and start patrolling left. Wait two seconds and stop patrolling. Then restart the cycle.
@@ -85,6 +88,7 @@ public class EnemyBehavior : MonoBehaviour {
 
 
         StartCoroutine(Patrolling());
+        
     }
 
     IEnumerator PatRight() //Patrol right for a time
