@@ -173,7 +173,6 @@ public class PlayerController : MonoBehaviour {
     public void ForcedMovement(float verticalVelocity, float horizontalVelocity)
     {
         rigidBody.AddForce(Vector2.up * verticalVelocity, ForceMode2D.Impulse);
-        print(verticalVelocity);
         rigidBody.AddForce(Vector2.right * horizontalVelocity, ForceMode2D.Impulse);
     }
 

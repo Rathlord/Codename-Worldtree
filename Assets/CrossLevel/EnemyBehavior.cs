@@ -5,15 +5,17 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour {
 
-    enum State { ApproachingLeft, ApproachingRight, Attacking, Idling };
+    enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling };
     State currentState;
 
     [SerializeField] float attackDistance = 3f; //Distance within the enemy will stop to attack the player
     [SerializeField] float moveSpeed = 2500f; //Movement speed factor of the enemy
+    [SerializeField] float fallMultiplier = 13f;
 
     Transform enemyTransform;
 
     bool isPatrolling = false;
+
 
 
     Rigidbody2D rigidBody;
@@ -39,10 +41,9 @@ public class EnemyBehavior : MonoBehaviour {
 
     void ActionSystem() //Checks the state of the enemy and starts the appropriate reaction
     {
-        if (currentState != State.Idling && isPatrolling == true)  //If the enemy isn't idling and is patrolling, stop the patrolling coroutine
+        if (currentState != State.Patrolling && isPatrolling == true)  //If the enemy isn't idling and is patrolling, stop the patrolling coroutine
         {
-            StopAllCoroutines();
-            StartCoroutine(PositionCheck());
+            StopCoroutine("Patrolling");
             isPatrolling = false;
             print("I should stop patrolling");
         }
@@ -61,40 +62,49 @@ public class EnemyBehavior : MonoBehaviour {
             rigidBody.velocity = new Vector2(0, 0);
             Attack();
         }
-        else if (currentState == State.Idling && isPatrolling == false) //If the enemy is in idle mode and isn't patrolling yet, set it to patrol
+        else if (currentState == State.Patrolling && isPatrolling == false) //If the enemy is in patrol mode and isn't patrolling yet, set it to patrol
         {
             isPatrolling = true;
-            StartCoroutine(Patrolling());
+            StartCoroutine("Patrolling");
             print("I should be patrolling");
         }
 
 
     }
 
-   IEnumerator Patrolling() //Begin patrolling to the right, wait for two seconds, stop patrolling right and start patrolling left. Wait two seconds and stop patrolling. Then restart the cycle.
+    private void BetterFalling() //Increases fall speed
+    {
+        if (rigidBody.velocity.y < 0)
+        {
+            rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+    }
+
+
+        IEnumerator Patrolling() //Begin patrolling to the right, wait for two seconds, stop patrolling right and start patrolling left. Wait two seconds and stop patrolling. Then restart the cycle.
     {
         print("Patrolling Started");
 
         StartCoroutine(PatRight());
         print("Starting Right");
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         print("Stopping Right");
         StopCoroutine(PatRight());
         print("Starting Left");
         StartCoroutine(PatLeft());
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(2.5f);
         print("Stopping Left");
         StopCoroutine(PatLeft());
 
 
-        StartCoroutine(Patrolling());
+        StartCoroutine("Patrolling");
         
     }
 
     IEnumerator PatRight() //Patrol right for a time
     {
         print("Patrolling right");
-        for (int i = 0; i <= 50; i++)
+        for (int i = 0; i <= 150; i++)
         {
             rigidBody.AddForce(Vector2.right * Time.deltaTime * 10000f);
             yield return null;
@@ -105,7 +115,7 @@ public class EnemyBehavior : MonoBehaviour {
     IEnumerator PatLeft() //Patrol left for a time
     {
         print("Patrolling left");
-        for (int i = 0; i <= 50; i++)
+        for (int i = 0; i <= 150; i++)
         {
             rigidBody.AddForce(Vector2.right * Time.deltaTime * -10000f);
             yield return null;
@@ -126,9 +136,9 @@ public class EnemyBehavior : MonoBehaviour {
             //print("I'm attacking!");
             yield return new WaitForSeconds(.75f);
         }
-        else if (Mathf.Abs(playerPos.y - enemyPos.y) >= 5f) //If the y distance is too far apart, idle
+        else if (Mathf.Abs(playerPos.y - enemyPos.y) >= 5f) //If the y distance is too far apart, patrol
         {
-            currentState = State.Idling;
+            currentState = State.Patrolling;
             //print("I'm idling!");
             yield return new WaitForSeconds(.5f);
         }
@@ -146,9 +156,9 @@ public class EnemyBehavior : MonoBehaviour {
             }
             yield return new WaitForSeconds(.3f);
         }
-        else if (Mathf.Abs(playerPos.x - enemyPos.x) > 35f) //If the enemy is far away from the player, idle
+        else if (Mathf.Abs(playerPos.x - enemyPos.x) > 35f) //If the enemy is far away from the player, patrol
         {
-            currentState = State.Idling;
+            currentState = State.Patrolling;
             print("I'm idling with nothing to do");
             yield return new WaitForSeconds(.75f);
         }
