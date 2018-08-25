@@ -61,6 +61,12 @@ public class PlayerController : MonoBehaviour {
         // print("Jump charges = " + jumpCharges);
     }
 
+    public void ChangeHealth(float healthChange)
+    {
+        currentHealth -= healthChange;
+        print("I should be changing health by -" + healthChange);
+    }
+
     private void UpdateHealthSlider()
     {
         slider.value = currentHealth;
@@ -123,7 +129,7 @@ public class PlayerController : MonoBehaviour {
             Invoke("Unfreeze", .4f);
             Vector2 direction = collision.transform.position - gameObject.transform.position;
             direction.Normalize();
-            print(direction);
+            //print(direction);
             rigidBody.AddForce(Vector2.right * -direction * enemyCollisionMagnitude, ForceMode2D.Impulse);
         }
     }
