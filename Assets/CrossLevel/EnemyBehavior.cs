@@ -55,7 +55,7 @@ public class EnemyBehavior : MonoBehaviour {
             StopAllCoroutines();
             StartCoroutine("PositionCheck");
             isPatrolling = false;
-            //print("I should stop patrolling");
+            print("I should stop patrolling");
         }
         if (currentState == State.ApproachingLeft) //Move the enemy left if it should be chasing the player left
         {
@@ -76,7 +76,7 @@ public class EnemyBehavior : MonoBehaviour {
         {
             isPatrolling = true;
             StartCoroutine("Patrolling");
-            //print("I should be patrolling");
+            print("I should be patrolling");
         }
 
 
@@ -93,17 +93,17 @@ public class EnemyBehavior : MonoBehaviour {
 
         IEnumerator Patrolling() //Begin patrolling to the right, wait for two seconds, stop patrolling right and start patrolling left. Wait two seconds and stop patrolling. Then restart the cycle.
     {
-        //print("Patrolling Started");
+        print("Patrolling Started");
 
         StartCoroutine(PatRight());
-        //print("Starting Right");
+        print("Starting Right");
         yield return new WaitForSeconds(2.5f);
-        //print("Stopping Right");
+        print("Stopping Right");
         StopCoroutine(PatRight());
-        //print("Starting Left");
+        print("Starting Left");
         StartCoroutine(PatLeft());
         yield return new WaitForSeconds(2.5f);
-        //print("Stopping Left");
+        print("Stopping Left");
         StopCoroutine(PatLeft());
 
 
@@ -113,24 +113,24 @@ public class EnemyBehavior : MonoBehaviour {
 
     IEnumerator PatRight() //Patrol right for a time
     {
-        //print("Patrolling right");
+        print("Patrolling right");
         for (int i = 0; i <= 150; i++)
         {
-            rigidBody.AddForce(Vector2.right * Time.deltaTime * 10000f);
-            yield return null;
+            rigidBody.AddForce(Vector2.right * Time.deltaTime * 5000f);
+
         }
-        yield return new WaitForSeconds(5f);
+        yield return null;
     }
 
     IEnumerator PatLeft() //Patrol left for a time
     {
-        //print("Patrolling left");
+        print("Patrolling left");
         for (int i = 0; i <= 150; i++)
         {
-            rigidBody.AddForce(Vector2.right * Time.deltaTime * -10000f);
-            yield return null;
+            rigidBody.AddForce(Vector2.right * Time.deltaTime * -5000f);
+
         }
-        yield return new WaitForSeconds(5f);
+        yield return null;
     }
 
 
