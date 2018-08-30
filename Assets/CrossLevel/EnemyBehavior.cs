@@ -115,8 +115,9 @@ public class EnemyBehavior : MonoBehaviour
             yield return null;
         }
 
-        StartCoroutine("Patrolling");
         yield return null;
+        StartCoroutine("Patrolling");
+
 
     }
 
