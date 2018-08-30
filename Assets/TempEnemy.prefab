@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 61863565101618342}
   - component: {fileID: 114097473162621762}
   - component: {fileID: 50350959971281942}
-  - component: {fileID: 114339592753001522}
   m_Layer: 8
   m_Name: TempEnemy
   m_TagString: Enemy
@@ -102,19 +101,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   attackDistance: 2
   moveSpeed: 25000
---- !u!114 &114339592753001522
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1714214640799230}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 53817d07e6de15745a2d6f296f13ea56, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackDistance: 2
-  moveSpeed: 500
+  fallMultiplier: 13
 --- !u!212 &212670303086484444
 SpriteRenderer:
   m_ObjectHideFlags: 1
