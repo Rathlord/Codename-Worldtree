@@ -13,8 +13,12 @@ public class ChestController : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        SpawnItemItem();
-        Object.Destroy(gameObject);
+        if (collision.gameObject.tag == "Player")
+        {
+            SpawnItemItem();
+            Object.Destroy(gameObject);
+        }
+
     }
 
     private void SpawnItemItem()

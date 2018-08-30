@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class EnemyBehavior : MonoBehaviour {
+public class EnemyBehavior : MonoBehaviour
+{
 
-    enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling };
+    [SerializeField] enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling };
     State currentState;
 
     [SerializeField] float attackDistance = 3f; //Distance within the enemy will stop to attack the player
@@ -18,10 +19,13 @@ public class EnemyBehavior : MonoBehaviour {
 
 
 
+
+    bool direction;
+
     Rigidbody2D rigidBody;
 
 
-	void Start () //Basic setup and starting position checking for AI
+    void Start() //Basic setup and starting position checking for AI
     {
         enemyTransform = GetComponent<Transform>();
         StartCoroutine("PositionCheck");
@@ -50,10 +54,9 @@ public class EnemyBehavior : MonoBehaviour {
 
     void ActionSystem() //Checks the state of the enemy and starts the appropriate reaction
     {
-        if (currentState != State.Patrolling && isPatrolling == true)  //If the enemy isn't idling and is patrolling, stop the patrolling coroutine
+        if (currentState != State.Patrolling && isPatrolling == true)  //If the enemy isn't in patrol state and is patrolling, stop the patrolling coroutine
         {
-            StopAllCoroutines();
-            StartCoroutine("PositionCheck");
+            StopCoroutine("Patrolling");
             isPatrolling = false;
             print("I should stop patrolling");
         }
@@ -74,13 +77,13 @@ public class EnemyBehavior : MonoBehaviour {
         }
         else if (currentState == State.Patrolling && isPatrolling == false) //If the enemy is in patrol mode and isn't patrolling yet, set it to patrol
         {
-            isPatrolling = true;
             StartCoroutine("Patrolling");
             print("I should be patrolling");
         }
 
 
     }
+
 
     private void BetterFalling() //Increases fall speed
     {
@@ -91,47 +94,33 @@ public class EnemyBehavior : MonoBehaviour {
     }
 
 
-        IEnumerator Patrolling() //Begin patrolling to the right, wait for two seconds, stop patrolling right and start patrolling left. Wait two seconds and stop patrolling. Then restart the cycle.
+
+    IEnumerator Patrolling()
     {
-        print("Patrolling Started");
+        isPatrolling = true;
+        float currenttime = Time.time;
+        print(currenttime);
 
-        StartCoroutine(PatRight());
-        print("Starting Right");
-        yield return new WaitForSeconds(2.5f);
-        print("Stopping Right");
-        StopCoroutine(PatRight());
-        print("Starting Left");
-        StartCoroutine(PatLeft());
-        yield return new WaitForSeconds(2.5f);
-        print("Stopping Left");
-        StopCoroutine(PatLeft());
+        while (Time.time - currenttime <= 2.5f)
+        {
+            rigidBody.velocity = Vector2.right * 10f;
+            yield return null;
+        }
+        print("Does code reach here?");
 
+
+        while (Time.time - currenttime > 2.5f && Time.time - currenttime < 5f)
+        {
+            rigidBody.velocity = Vector2.left * 10f;
+            yield return null;
+        }
 
         StartCoroutine("Patrolling");
-        
-    }
-
-    IEnumerator PatRight() //Patrol right for a time
-    {
-        print("Patrolling right");
-        for (int i = 0; i <= 150; i++)
-        {
-            rigidBody.AddForce(Vector2.right * Time.deltaTime * 5000f);
-
-        }
         yield return null;
+
     }
 
-    IEnumerator PatLeft() //Patrol left for a time
-    {
-        print("Patrolling left");
-        for (int i = 0; i <= 150; i++)
-        {
-            rigidBody.AddForce(Vector2.right * Time.deltaTime * -5000f);
 
-        }
-        yield return null;
-    }
 
 
     IEnumerator PositionCheck() //Check the position of the enemy relevant to player position
@@ -139,7 +128,7 @@ public class EnemyBehavior : MonoBehaviour {
         Vector3 enemyPos = enemyTransform.position;
         Vector3 playerPos = PlayerController.instance.playerTransform.position;
 
- 
+
         if (Mathf.Abs(playerPos.x - enemyPos.x) <= attackDistance) //If x distance is small enough, go into the attack state
         {
             currentState = State.Attacking;
@@ -173,8 +162,9 @@ public class EnemyBehavior : MonoBehaviour {
             yield return new WaitForSeconds(.75f);
         }
 
-        yield return null;
         StartCoroutine("PositionCheck"); //Restart the process
+        yield return null;
+
 
     }
 
