@@ -13,7 +13,6 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] public Transform playerTransform;
 
-
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
     bool grounded;
@@ -30,8 +29,11 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float fallMultiplier = 2.5f;
     [SerializeField] float lowJumpMultiplier = 2f;
 
-    // Use this for initialization
-    void Start () {
+    public bool dead = false;
+
+
+    void Start () 
+    {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
         currentHealth = StatHolster.instance.healthMaximum;
@@ -58,7 +60,23 @@ public class PlayerController : MonoBehaviour {
         UpdateHealthSlider();
         SetSpeed();
         SetJump();
-        // print("Jump charges = " + jumpCharges);
+    }
+
+    private void LateUpdate()
+    {
+        DeathCheck();
+    }
+
+    private void DeathCheck()
+    {
+        if (currentHealth <= 0 && dead == false)
+        {
+            freezeControls = true;
+            rigidBody.freezeRotation = false;
+            playerTransform.Rotate(0.0f, 0.0f, 90f, Space.World);
+            dead = true;
+            gameObject.tag = "Enemy";
+        }
     }
 
     public void ChangeHealth(float healthChange)
