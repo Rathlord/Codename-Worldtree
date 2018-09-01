@@ -17,7 +17,7 @@ public class PlayerController : MonoBehaviour {
     float jumpVelocity = 10f;
     bool grounded;
     [SerializeField] float currentHealth = 1f;
-    [SerializeField] float enemyCollisionMagnitude = 100f;
+    [SerializeField] float enemyCollisionMagnitude = 200f;
 
     public bool freezeControls = false;
 
@@ -26,8 +26,8 @@ public class PlayerController : MonoBehaviour {
 
     int jumpCharges = 1;
 
-    [SerializeField] float fallMultiplier = 2.5f;
-    [SerializeField] float lowJumpMultiplier = 2f;
+    [SerializeField] float fallMultiplier = 13f;
+    [SerializeField] float lowJumpMultiplier = 5f;
 
     public bool dead = false;
 
