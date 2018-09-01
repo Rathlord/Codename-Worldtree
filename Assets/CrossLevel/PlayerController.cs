@@ -39,6 +39,7 @@ public class PlayerController : MonoBehaviour {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
         currentHealth = StatHolster.instance.healthMaximum;
+        print("I'm at least starting right?");
 	}
     
 
@@ -57,7 +58,7 @@ public class PlayerController : MonoBehaviour {
         instance = this;
     }
 
-    void Update()
+    public virtual void Update()
     {
         UpdateHealthSlider();
         SetSpeed();

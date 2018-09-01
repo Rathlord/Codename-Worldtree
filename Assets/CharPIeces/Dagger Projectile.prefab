@@ -101,6 +101,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 50833150244012232}
   projectileSpeed: 30
+  playerController: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
+    type: 2}
 --- !u!212 &212019702286407912
 SpriteRenderer:
   m_ObjectHideFlags: 1

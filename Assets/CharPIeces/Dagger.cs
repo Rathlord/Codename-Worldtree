@@ -7,14 +7,16 @@ public class Dagger : MonoBehaviour {
     [SerializeField] Rigidbody2D rigidBody;
     [SerializeField] float projectileSpeed = 30f;
 
+    public PlayerController playerController;
 
     private void Start()
     {
-        if (PlayerController.instance.facing == "right")
+        print(playerController.facing);
+        if (playerController.facing == "right")
         {
             rigidBody.velocity = Vector3.right * 10f;
         }
-        if (PlayerController.instance.facing == "left")
+        if (playerController.facing == "left")
         {
             rigidBody.velocity = Vector3.left * 10f;
         }

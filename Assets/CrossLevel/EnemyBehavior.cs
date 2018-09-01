@@ -17,7 +17,7 @@ public class EnemyBehavior : MonoBehaviour
 
     bool isPatrolling = false;
 
-
+    public PlayerController playerController;
 
 
     bool direction;
@@ -43,7 +43,7 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             print("Collided with player should do damage");
-            PlayerController.instance.ChangeHealth(10);
+            playerController.ChangeHealth(10);
         }
     }
 
@@ -106,7 +106,7 @@ public class EnemyBehavior : MonoBehaviour
             rigidBody.velocity = Vector2.right * 10f;
             yield return null;
         }
-        print("Does code reach here?");
+        //print("Does code reach here?");
 
 
         while (Time.time - currenttime > 2.5f && Time.time - currenttime < 5f)
@@ -127,7 +127,7 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator PositionCheck() //Check the position of the enemy relevant to player position
     {
         Vector3 enemyPos = enemyTransform.position;
-        Vector3 playerPos = PlayerController.instance.playerTransform.position;
+        Vector3 playerPos = playerController.playerTransform.position;
 
 
         if (Mathf.Abs(playerPos.x - enemyPos.x) <= attackDistance) //If x distance is small enough, go into the attack state

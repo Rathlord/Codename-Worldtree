@@ -5,11 +5,14 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Envy : PlayerController {
 
-    [SerializeField] GameObject daggerToThrow;
-    [SerializeField] Transform daggerSpawnPosition;
 
-    void Update()
+    [SerializeField] GameObject daggerToThrow;
+    [SerializeField] Transform daggerSpawnRight;
+    [SerializeField] Transform daggerSpawnLeft;
+
+    public override void Update()
     {
+        base.Update();
         Ability1();
     }
 
@@ -17,7 +20,14 @@ public class Envy : PlayerController {
     {
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
-            Instantiate(daggerToThrow, daggerSpawnPosition);
+            if (facing == "right")
+            {
+                Instantiate(daggerToThrow, daggerSpawnRight);
+            }
+            else if (facing == "left")
+            {
+                Instantiate(daggerToThrow, daggerSpawnLeft);
+            }
         }
     }
 

@@ -175,12 +175,40 @@ GameObject:
   m_Component:
   - component: {fileID: 4660951467306052}
   m_Layer: 0
-  m_Name: ProjectilePosition
+  m_Name: ProjectilePositionL
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &1932817206936270
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4311006761814720}
+  m_Layer: 0
+  m_Name: ProjectilePositionR
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4311006761814720
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1932817206936270}
+  m_LocalRotation: {x: 0, y: 0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: 3, y: 1.5, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4494834071937358}
+  m_RootOrder: 2
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &4485690819349558
 Transform:
   m_ObjectHideFlags: 1
@@ -206,6 +234,7 @@ Transform:
   m_Children:
   - {fileID: 4485690819349558}
   - {fileID: 224785227305008108}
+  - {fileID: 4311006761814720}
   - {fileID: 4660951467306052}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -216,13 +245,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1833518835913400}
-  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
-  m_LocalPosition: {x: 3, y: 1.5, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0.7071068, w: 0.7071068}
+  m_LocalPosition: {x: -3, y: 1.4999996, z: 0}
+  m_LocalScale: {x: 1.0000225, y: 1.0000225, z: 1.000022}
   m_Children: []
   m_Father: {fileID: 4494834071937358}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
+  m_RootOrder: 3
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!20 &20206933018355224
 Camera:
   m_ObjectHideFlags: 1
@@ -352,7 +381,7 @@ MonoBehaviour:
   facing: 
   daggerToThrow: {fileID: 1573084461974852, guid: cacf00cec2f994d6fa69342e34ba20ca,
     type: 2}
-  daggerSpawnPosition: {fileID: 4660951467306052}
+  daggerSpawnPosition: {fileID: 4311006761814720}
 --- !u!114 &114314048632517168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -365,6 +394,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cameraTransform: {fileID: 4485690819349558}
+  playerController: {fileID: 114232937390920512}
 --- !u!114 &114506042071329928
 MonoBehaviour:
   m_ObjectHideFlags: 1
