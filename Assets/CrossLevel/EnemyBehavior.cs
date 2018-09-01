@@ -78,7 +78,7 @@ public class EnemyBehavior : MonoBehaviour
         else if (currentState == State.Patrolling && isPatrolling == false) //If the enemy is in patrol mode and isn't patrolling yet, set it to patrol
         {
             StartCoroutine("Patrolling");
-            print("I should be patrolling");
+            //print("I should be patrolling");
         }
 
 
@@ -99,7 +99,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         isPatrolling = true;
         float currenttime = Time.time;
-        print(currenttime);
+        //print(currenttime);
 
         while (Time.time - currenttime <= 2.5f)
         {

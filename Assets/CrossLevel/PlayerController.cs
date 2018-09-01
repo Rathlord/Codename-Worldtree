@@ -31,6 +31,8 @@ public class PlayerController : MonoBehaviour {
 
     public bool dead = false;
 
+    public string facing;
+
 
     void Start () 
     {
@@ -75,7 +77,7 @@ public class PlayerController : MonoBehaviour {
             rigidBody.freezeRotation = false;
             playerTransform.Rotate(0.0f, 0.0f, 90f, Space.World);
             dead = true;
-            gameObject.tag = "Enemy";
+            gameObject.layer = 8;
         }
     }
 
@@ -122,7 +124,7 @@ public class PlayerController : MonoBehaviour {
      {
          bool jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
-         if (jump == true && jumpCharges >= 1)
+         if (jump == true && jumpCharges >= 1 && dead == false)
          {
              rigidBody.velocity = Vector2.up * jumpVelocity;
             jumpCharges--;
@@ -140,7 +142,7 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Enemy")
+        if (collision.gameObject.tag == "Enemy" && dead == false)
         {
             rigidBody.velocity = new Vector2(0, 0);
             freezeControls = true;
@@ -154,7 +156,10 @@ public class PlayerController : MonoBehaviour {
 
     private void Unfreeze()
     {
-        freezeControls = false;
+        if (dead == false){
+            freezeControls = false;
+        }
+
     }
 
     private void OnCollisionExit2D(Collision2D collision) //Disallow jumping if player not on a floor
@@ -169,6 +174,15 @@ public class PlayerController : MonoBehaviour {
     private void HorizontalMovement()
     {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // Use horizontal cross-platform input
+
+        if (xThrow >= 0)
+        {
+            facing = "right";
+        }
+        else if (xThrow < 0)
+        {
+            facing = "left";
+        }
 
         float horizontalMovement = xThrow * playerSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
