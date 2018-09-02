@@ -21,7 +21,7 @@ public class PlayerController : MonoBehaviour {
 
     public bool freezeControls = false;
 
-    Rigidbody2D rigidBody;
+    public Rigidbody2D rigidBody;
     float xThrow;
 
     int jumpCharges = 1;
@@ -176,7 +176,7 @@ public class PlayerController : MonoBehaviour {
     {
         xThrow = CrossPlatformInputManager.GetAxis("Horizontal"); // Use horizontal cross-platform input
 
-        if (xThrow >= 0)
+        if (xThrow > 0)
         {
             facing = "right";
         }

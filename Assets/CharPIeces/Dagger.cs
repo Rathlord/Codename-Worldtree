@@ -5,26 +5,28 @@ using UnityEngine;
 public class Dagger : MonoBehaviour {
 
     [SerializeField] Rigidbody2D rigidBody;
-    [SerializeField] float projectileSpeed = 30f;
+    [SerializeField] float projectileSpeed = 20f;
 
-    public PlayerController playerController;
 
-    private void Start()
+    //public PlayerController playerController;
+
+    void Start()
     {
-        print(playerController.facing);
+        GameObject player = GameObject.Find("Player");
+        PlayerController playerController = player.GetComponent<PlayerController>();
+
+
         if (playerController.facing == "right")
         {
-            rigidBody.velocity = Vector3.right * 10f;
+            rigidBody.velocity = Vector3.right * projectileSpeed;
         }
         if (playerController.facing == "left")
         {
-            rigidBody.velocity = Vector3.left * 10f;
+            rigidBody.velocity = Vector3.left * projectileSpeed;
         }
         else
         {
-            rigidBody.velocity = Vector3.right * 10f;
+            rigidBody.velocity = Vector3.right * projectileSpeed;
         }
     }
-
-
 }

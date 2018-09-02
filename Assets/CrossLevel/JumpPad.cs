@@ -6,9 +6,15 @@ public class JumpPad : MonoBehaviour {
 
     [SerializeField] float jumpPadPower = 30f;
 
+    public PlayerController playerController;
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        PlayerController.instance.ForcedMovement(jumpPadPower, 0f);
+        if (collision.gameObject.tag == "Player")
+        {
+            playerController.ForcedMovement(jumpPadPower, 0f);
+        }
+
     }
 
 }
