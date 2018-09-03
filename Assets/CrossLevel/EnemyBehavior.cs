@@ -19,6 +19,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public PlayerController playerController;
 
+    int enemyHealth = 1;
 
     bool direction;
 
@@ -38,12 +39,29 @@ public class EnemyBehavior : MonoBehaviour
         //print("I should be attacking");
     }
 
+    void EnemyTakeDamage(int damage)
+    {
+        enemyHealth = enemyHealth - damage;
+    }
+
+    private void Update()
+    {
+        if (enemyHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             print("Collided with player should do damage");
             playerController.ChangeHealth(10);
+        }
+        if (collision.gameObject.tag == "Projectile")
+        {
+            enemyHealth -= collision.gameObject.damage;
         }
     }
 

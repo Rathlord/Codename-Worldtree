@@ -25,7 +25,7 @@ GameObject:
   - component: {fileID: 114944863997150624}
   m_Layer: 0
   m_Name: Dagger Projectile
-  m_TagString: Untagged
+  m_TagString: Projectile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -100,9 +100,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 50749161674330368}
-  projectileSpeed: 20
-  playerController: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
-    type: 2}
+  projectileSpeed: 40
+  destroyAfterTime: 3
+  damage: 10
 --- !u!212 &212536737932449302
 SpriteRenderer:
   m_ObjectHideFlags: 1

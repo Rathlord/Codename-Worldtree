@@ -5,7 +5,9 @@ using UnityEngine;
 public class Dagger : MonoBehaviour {
 
     [SerializeField] Rigidbody2D rigidBody;
-    [SerializeField] float projectileSpeed = 20f;
+    [SerializeField] float projectileSpeed = 40f;
+    [SerializeField] float destroyAfterTime = 3f;
+    [SerializeField] int damage = 10;
 
 
     //public PlayerController playerController;
@@ -28,5 +30,18 @@ public class Dagger : MonoBehaviour {
         {
             rigidBody.velocity = Vector3.right * projectileSpeed;
         }
+
+        Invoke("Suicide", destroyAfterTime);
     }
+
+    void Suicide()
+    {
+        Destroy(gameObject);
+    }
+
+    private void OnCollisionEnter2D()
+    {
+        Destroy(gameObject);
+    }
+
 }
