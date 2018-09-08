@@ -127,7 +127,7 @@ GameObject:
   - component: {fileID: 61818962197021990}
   - component: {fileID: 114232937390920512}
   - component: {fileID: 114983146673464958}
-  - component: {fileID: 114860090430001140}
+  - component: {fileID: 114768828359103438}
   - component: {fileID: 58748867022264336}
   m_Layer: 0
   m_Name: Player
@@ -385,7 +385,6 @@ MonoBehaviour:
     type: 2}
   daggerSpawnRight: {fileID: 4311006761814720}
   daggerSpawnLeft: {fileID: 4660951467306052}
-  Ability1: {fileID: 0}
 --- !u!114 &114314048632517168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -459,6 +458,18 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   slider: {fileID: 114791189708201556}
+--- !u!114 &114768828359103438
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514350284441724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 452bffdaec6d948acb4c3075f45ed3d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability1Damage: 0
 --- !u!114 &114788691385635182
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -561,18 +572,6 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
---- !u!114 &114860090430001140
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514350284441724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e385fed34dc17495ebc58cb6104b9bc2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ability1Damage: 0
 --- !u!114 &114941530222710706
 MonoBehaviour:
   m_ObjectHideFlags: 1

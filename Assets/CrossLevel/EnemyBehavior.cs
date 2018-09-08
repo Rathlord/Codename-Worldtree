@@ -19,7 +19,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public PlayerController playerController;
 
-    float enemyHealth = 1f;
+    float enemyHealth = 40f;
 
     bool direction;
 
