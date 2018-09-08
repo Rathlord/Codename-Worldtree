@@ -127,6 +127,7 @@ GameObject:
   - component: {fileID: 61818962197021990}
   - component: {fileID: 114232937390920512}
   - component: {fileID: 114983146673464958}
+  - component: {fileID: 114860090430001140}
   - component: {fileID: 58748867022264336}
   m_Layer: 0
   m_Name: Player
@@ -375,13 +376,16 @@ MonoBehaviour:
   currentHealth: 1
   enemyCollisionMagnitude: 200
   freezeControls: 0
+  rigidBody: {fileID: 0}
   fallMultiplier: 13
   lowJumpMultiplier: 5
   dead: 0
   facing: 
-  daggerToThrow: {fileID: 1573084461974852, guid: cacf00cec2f994d6fa69342e34ba20ca,
+  daggerToThrow: {fileID: 1829199243437778, guid: cacf00cec2f994d6fa69342e34ba20ca,
     type: 2}
-  daggerSpawnPosition: {fileID: 4311006761814720}
+  daggerSpawnRight: {fileID: 4311006761814720}
+  daggerSpawnLeft: {fileID: 4660951467306052}
+  Ability1: {fileID: 0}
 --- !u!114 &114314048632517168
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -557,6 +561,18 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114860090430001140
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1514350284441724}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e385fed34dc17495ebc58cb6104b9bc2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ability1Damage: 0
 --- !u!114 &114941530222710706
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -588,6 +604,7 @@ MonoBehaviour:
   jumpVelocity: 70
   jumpCharges: 1
   healthMaximum: 100
+  attackDamage: 10
 --- !u!212 &212778961245481224
 SpriteRenderer:
   m_ObjectHideFlags: 1

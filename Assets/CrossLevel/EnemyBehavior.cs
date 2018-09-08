@@ -19,11 +19,13 @@ public class EnemyBehavior : MonoBehaviour
 
     public PlayerController playerController;
 
-    int enemyHealth = 1;
+    float enemyHealth = 1f;
 
     bool direction;
 
     Rigidbody2D rigidBody;
+
+    public Ability1 Ability1;
 
 
     void Start() //Basic setup and starting position checking for AI
@@ -59,9 +61,9 @@ public class EnemyBehavior : MonoBehaviour
             print("Collided with player should do damage");
             playerController.ChangeHealth(10);
         }
-        if (collision.gameObject.tag == "Projectile")
+        if (collision.gameObject.tag == "Ability1")
         {
-            enemyHealth -= collision.gameObject.damage;
+            enemyHealth -= Ability1.ability1Damage;
         }
     }
 

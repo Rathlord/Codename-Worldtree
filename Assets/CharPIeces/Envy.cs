@@ -10,13 +10,14 @@ public class Envy : PlayerController {
     [SerializeField] Transform daggerSpawnRight;
     [SerializeField] Transform daggerSpawnLeft;
 
+
     public override void Update()
     {
         base.Update();
-        Ability1();
+        AbilityOne();
     }
 
-    void Ability1()
+    void AbilityOne()
     {
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {

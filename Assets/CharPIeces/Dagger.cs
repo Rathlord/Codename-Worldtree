@@ -10,7 +10,6 @@ public class Dagger : MonoBehaviour {
     [SerializeField] int damage = 10;
 
 
-    //public PlayerController playerController;
 
     void Start()
     {

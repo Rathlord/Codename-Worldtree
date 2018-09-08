@@ -12,7 +12,8 @@ public class StatHolster : MonoBehaviour {
     public float moveSpeed = 30000f;
     public float jumpVelocity = 70f;
     public int jumpCharges = 1;
-    public float healthMaximum = 100;
+    public float healthMaximum = 100f;
+    public float attackDamage = 10f;
 
     private void Awake() //singleton pattern setup
     {
@@ -27,6 +28,11 @@ public class StatHolster : MonoBehaviour {
         }
 
         instance = this;
+    }
+
+    public void AddattackDamage(float changeValue)
+    {
+        attackDamage += changeValue;
     }
 
     public void AddMaxHealth(float changeValue)
