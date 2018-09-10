@@ -6,7 +6,7 @@ using UnityEngine;
 public class EnemyBehavior : MonoBehaviour
 {
 
-    [SerializeField] enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling };
+    [SerializeField] enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling, Falling };
     State currentState;
 
     [SerializeField] float attackDistance = 3f; //Distance within the enemy will stop to attack the player
@@ -23,7 +23,7 @@ public class EnemyBehavior : MonoBehaviour
 
     bool direction;
 
-    Rigidbody2D rigidBody;
+    public Rigidbody2D rigidBody;
 
     public Ability1 Ability1;
 
@@ -54,6 +54,17 @@ public class EnemyBehavior : MonoBehaviour
         }
     }
 
+    private void OnCollisionExit2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            print("Fucking stop patrolling");
+            StopAllCoroutines();
+            StartCoroutine("PositionCheck");
+            isPatrolling = false;
+        }
+    }
+
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
@@ -74,13 +85,17 @@ public class EnemyBehavior : MonoBehaviour
 
     void ActionSystem() //Checks the state of the enemy and starts the appropriate reaction
     {
-        if (currentState != State.Patrolling && isPatrolling == true)  //If the enemy isn't in patrol state and is patrolling, stop the patrolling coroutine
+        if (currentState != State.Patrolling)  //If the enemy isn't in patrol state and is patrolling, stop the patrolling coroutine
         {
             StopCoroutine("Patrolling");
             isPatrolling = false;
-            print("I should stop patrolling");
+            //print("I should stop patrolling");
         }
-        if (currentState == State.ApproachingLeft) //Move the enemy left if it should be chasing the player left
+        if (currentState == State.Falling)
+        {
+            rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
+        }
+        else if (currentState == State.ApproachingLeft) //Move the enemy left if it should be chasing the player left
         {
             //print("Actually moving Left");
             rigidBody.AddForce(Vector2.right * Time.deltaTime * -moveSpeed);
@@ -100,17 +115,6 @@ public class EnemyBehavior : MonoBehaviour
             StartCoroutine("Patrolling");
             //print("I should be patrolling");
         }
-
-
-    }
-
-
-    private void BetterFalling() //Increases fall speed
-    {
-        if (rigidBody.velocity.y < 0)
-        {
-            rigidBody.velocity += Vector2.up * Physics2D.gravity.y * (fallMultiplier - 1) * Time.deltaTime;
-        }
     }
 
 
@@ -126,8 +130,6 @@ public class EnemyBehavior : MonoBehaviour
             rigidBody.velocity = Vector2.right * 10f;
             yield return null;
         }
-        //print("Does code reach here?");
-
 
         while (Time.time - currenttime > 2.5f && Time.time - currenttime < 5f)
         {
@@ -137,8 +139,6 @@ public class EnemyBehavior : MonoBehaviour
 
         yield return null;
         StartCoroutine("Patrolling");
-
-
     }
 
 
@@ -149,18 +149,23 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 enemyPos = enemyTransform.position;
         Vector3 playerPos = playerController.playerTransform.position;
 
-
-        if (Mathf.Abs(playerPos.x - enemyPos.x) <= attackDistance) //If x distance is small enough, go into the attack state
+        if (rigidBody.velocity.y < 0)
         {
-            currentState = State.Attacking;
-            //print("I'm attacking!");
-            yield return new WaitForSeconds(.75f);
+            print("I'm in the falling state");
+            currentState = State.Falling;
+            yield return new WaitForSeconds(.2f);
         }
         else if (Mathf.Abs(playerPos.y - enemyPos.y) >= 5f) //If the y distance is too far apart, patrol
         {
             currentState = State.Patrolling;
             //print("I'm idling!");
             yield return new WaitForSeconds(.5f);
+        }
+        else if (Mathf.Abs(playerPos.x - enemyPos.x) <= attackDistance) //If x distance is small enough, go into the attack state
+        {
+            currentState = State.Attacking;
+            //print("I'm attacking!");
+            yield return new WaitForSeconds(.75f);
         }
         else if (Mathf.Abs(playerPos.x - enemyPos.x) <= 35f) //If the x distance is close enough, chase the player in the appropriate direction
         {
