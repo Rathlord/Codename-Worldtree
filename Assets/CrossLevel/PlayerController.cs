@@ -29,6 +29,9 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] float fallMultiplier = 13f;
     [SerializeField] float lowJumpMultiplier = 5f;
 
+    [SerializeField] Vector3 facingRight;
+    [SerializeField] Vector3 facingLeft;
+
     public bool dead = false;
 
     public string facing;
@@ -63,6 +66,20 @@ public class PlayerController : MonoBehaviour {
         UpdateHealthSlider();
         SetSpeed();
         SetJump();
+        CharacterFacing();
+    }
+
+    void CharacterFacing()
+    {
+        
+        if (facing == "right")
+        {
+            playerTransform.rotation = Quaternion.Euler(facingRight);
+        }
+        else if (facing == "left")
+        {
+            playerTransform.rotation = Quaternion.Euler(facingLeft);
+        }
     }
 
     private void LateUpdate()
@@ -134,7 +151,15 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
     {
-        if (collision.gameObject.tag == "Floor")
+        /*if (collision.gameObject.tag == "Floor")
+        {
+            jumpCharges = StatHolster.instance.jumpCharges;
+            grounded = true;
+        }*/
+
+        CircleCollider2D collider = collision.otherCollider as CircleCollider2D;
+
+        if (collider != null && collision.gameObject.tag == "Floor")
         {
             jumpCharges = StatHolster.instance.jumpCharges;
             grounded = true;

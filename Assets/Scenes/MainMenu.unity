@@ -459,11 +459,6 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 82474268346262576, guid: 6bcc00570bd202a4384c42e829e76255,
         type: 2}
-      propertyPath: m_audioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: 4ecce979a5377d54784bc4fadffb9491, type: 3}
-    - target: {fileID: 82474268346262576, guid: 6bcc00570bd202a4384c42e829e76255,
-        type: 2}
       propertyPath: m_Volume
       value: 0.438
       objectReference: {fileID: 0}
@@ -472,6 +467,21 @@ Prefab:
       propertyPath: Loop
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 82474268346262576, guid: 6bcc00570bd202a4384c42e829e76255,
+        type: 2}
+      propertyPath: m_audioClip
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 114304982758394940, guid: 6bcc00570bd202a4384c42e829e76255,
+        type: 2}
+      propertyPath: mainMenuMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: 4287842f1516b4ddf820dc918ed208ad, type: 3}
+    - target: {fileID: 114304982758394940, guid: 6bcc00570bd202a4384c42e829e76255,
+        type: 2}
+      propertyPath: otherMusic
+      value: 
+      objectReference: {fileID: 8300000, guid: c741026331ed74fe2a3747f323bb18c8, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6bcc00570bd202a4384c42e829e76255, type: 2}
   m_IsPrefabAsset: 0

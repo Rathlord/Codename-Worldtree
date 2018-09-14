@@ -738,7 +738,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 1969031942606382, guid: acceb29c91bbda448be0094500ac847e, type: 2}
       propertyPath: m_Name
-      value: ItemSpawner (1)
+      value: ItemSpawner
       objectReference: {fileID: 0}
     - target: {fileID: 114716324964936002, guid: acceb29c91bbda448be0094500ac847e,
         type: 2}
@@ -1163,6 +1163,29 @@ Prefab:
     - target: {fileID: 4494834071937358, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
       propertyPath: m_RootOrder
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494834071937358, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4494834071937358, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: faceLeft.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: faceLeft.y
+      value: -180
+      objectReference: {fileID: 0}
+    - target: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: facingLeft.y
+      value: -180
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
