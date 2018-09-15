@@ -33,10 +33,9 @@ public class PlayerController : MonoBehaviour {
 
     [SerializeField] Vector3 facingRight;
     [SerializeField] Vector3 facingLeft;
+    public string facing;
 
     public bool dead = false;
-
-    public string facing;
 
     [SerializeField] public GameObject projectileParent;
 

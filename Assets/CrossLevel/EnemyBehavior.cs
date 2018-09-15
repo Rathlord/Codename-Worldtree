@@ -10,8 +10,10 @@ public class EnemyBehavior : MonoBehaviour
     State currentState;
 
     [SerializeField] float attackDistance = 3f; //Distance within the enemy will stop to attack the player
-    [SerializeField] float moveSpeed = 2500f; //Movement speed factor of the enemy
+    [SerializeField] float moveSpeed = 25000f; //Movement speed factor of the enemy
     [SerializeField] float fallMultiplier = 13f;
+    [SerializeField] float attackDelay = 2f; //Time between attacks
+    float lastAttack; //The current time of the last attack
 
     Transform enemyTransform;
 
@@ -35,9 +37,23 @@ public class EnemyBehavior : MonoBehaviour
         rigidBody.freezeRotation = true;
     }
 
-    void Attack()
+    public void Attack()
     {
+        if (lastAttack + attackDelay > Time.time)
+        {
+            return;
+        }
+        else
+        {
+            lastAttack = Time.time;
+            DoAttack();
+        }
         //print("I should be attacking");
+    }
+
+    public virtual void DoAttack()
+    {
+        
     }
 
     void EnemyTakeDamage(int damage)
@@ -68,7 +84,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (collision.gameObject.tag == "Player")
         {
-            print("Collided with player should do damage");
+            // print("Collided with player should do damage");
             playerController.TakeDamage(10);
         }
         if (collision.gameObject.tag == "Ability1")
