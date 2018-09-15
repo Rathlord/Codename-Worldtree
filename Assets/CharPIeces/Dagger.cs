@@ -7,12 +7,10 @@ public class Dagger : MonoBehaviour {
     [SerializeField] Rigidbody2D rigidBody;
     [SerializeField] float projectileSpeed = 40f;
     [SerializeField] float destroyAfterTime = 3f;
-    [SerializeField] int damage = 10;
 
-
-
-    void Start()
+    void Awake()
     {
+
         GameObject player = GameObject.Find("Player");
         PlayerController playerController = player.GetComponent<PlayerController>();
 
@@ -21,7 +19,7 @@ public class Dagger : MonoBehaviour {
         {
             rigidBody.velocity = Vector3.right * projectileSpeed;
         }
-        if (playerController.facing == "left")
+        else if (playerController.facing == "left")
         {
             rigidBody.velocity = Vector3.left * projectileSpeed;
         }
@@ -32,6 +30,7 @@ public class Dagger : MonoBehaviour {
 
         Invoke("Suicide", destroyAfterTime);
     }
+
 
     void Suicide()
     {

@@ -25,7 +25,6 @@ public class EnemyBehavior : MonoBehaviour
 
     public Rigidbody2D rigidBody;
 
-    public Ability1 Ability1;
 
 
     void Start() //Basic setup and starting position checking for AI
@@ -70,11 +69,23 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             print("Collided with player should do damage");
-            playerController.ChangeHealth(10);
+            playerController.TakeDamage(10);
         }
         if (collision.gameObject.tag == "Ability1")
         {
-            enemyHealth -= Ability1.ability1Damage;
+            enemyHealth -= playerController.ability1Damage;
+        }
+        if (collision.gameObject.tag == "Ability2")
+        {
+            enemyHealth -= playerController.ability2Damage;
+        }
+        if (collision.gameObject.tag == "Ability3")
+        {
+            enemyHealth -= playerController.ability3Damage;
+        }
+        if (collision.gameObject.tag == "Ability4")
+        {
+            enemyHealth -= playerController.ability4Damage;
         }
     }
 

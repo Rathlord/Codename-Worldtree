@@ -15,6 +15,29 @@ public class ItemParent : MonoBehaviour {
 
     public float smoothing = 1f;
 
+    int iDidThis = 0;
+
+    void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (iDidThis == 0 && collision.gameObject.tag == "Player")
+        {
+            iDidThis++;
+            ItemActions();
+            StopAllCoroutines();
+            Object.Destroy(gameObject);
+        }
+        else
+        {
+            print("I tried to proc twice");
+            return;
+        }
+    }
+
+    public virtual void ItemActions()
+    {
+        print("I'm doing the wrong thing");
+    }
+
     private void Start()
     {
         SetBounceValues();
@@ -34,17 +57,6 @@ public class ItemParent : MonoBehaviour {
         thisTransform = transform.position;
         highPoint = thisTransform + bounceAmount;
         lowPoint = thisTransform - bounceAmount;
-    }
-
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.tag == "Player")
-        {
-            StopAllCoroutines();
-            Object.Destroy(gameObject);
-        }
-
-
     }
 
     IEnumerator Floating()

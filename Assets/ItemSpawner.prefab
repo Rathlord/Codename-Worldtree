@@ -137,7 +137,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ItemList:
-  - {fileID: 1921374133413732, guid: 1f92d487e52a5c64aa901b82985aca40, type: 2}
+  - {fileID: 1787412511506840, guid: ea98f865591804fbf965116dec49041e, type: 2}
+  - {fileID: 1372406820471582, guid: f03715b45159b475db435f78ff7aca8f, type: 2}
   - {fileID: 1974714270828700, guid: efd20455491c50649be57e0a978c9f6c, type: 2}
 --- !u!114 &114497739291143604
 MonoBehaviour:
@@ -179,7 +180,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0.5188679, b: 0.032575097, a: 1}
+  m_Color: {r: 0, g: 0.4205442, b: 0.5176471, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:

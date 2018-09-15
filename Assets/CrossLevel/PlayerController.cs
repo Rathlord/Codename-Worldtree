@@ -15,8 +15,10 @@ public class PlayerController : MonoBehaviour {
 
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
+    float armor;
     bool grounded;
     [SerializeField] float currentHealth = 1f;
+    [SerializeField] float maxHealth;
     [SerializeField] float enemyCollisionMagnitude = 200f;
 
     public bool freezeControls = false;
@@ -35,6 +37,13 @@ public class PlayerController : MonoBehaviour {
     public bool dead = false;
 
     public string facing;
+
+    [SerializeField] public GameObject projectileParent;
+
+    public float ability1Damage;
+    public float ability2Damage;
+    public float ability3Damage;
+    public float ability4Damage;
 
 
     void Start () 
@@ -63,31 +72,67 @@ public class PlayerController : MonoBehaviour {
 
     public virtual void Update()
     {
-        UpdateHealthSlider();
+        UpdateMaxHealth();
         SetSpeed();
         SetJump();
         CharacterFacing();
+        SetAbilityDamage();
+        SetArmor();
     }
 
-    void CharacterFacing()
+
+
+    private void UpdateMaxHealth()
     {
-        
-        if (facing == "right")
+        maxHealth = StatHolster.instance.healthMaximum;
+        if (currentHealth > maxHealth)
         {
-            playerTransform.rotation = Quaternion.Euler(facingRight);
+            currentHealth = maxHealth;
         }
-        else if (facing == "left")
+    }
+
+    void FixedUpdate()
+    {
+        HorizontalMovement();
+        Jumping();
+        BetterJumping();
+    }
+
+    private void SetAbilityDamage()
+    {
+        ability1Damage = StatHolster.instance.attackDamage;
+        ability2Damage = StatHolster.instance.attackDamage;
+        ability3Damage = StatHolster.instance.attackDamage;
+        ability4Damage = StatHolster.instance.attackDamage;
+    }
+
+    void CharacterFacing() // checks facing of character
+    {
+        if (dead == false)
         {
-            playerTransform.rotation = Quaternion.Euler(facingLeft);
+            if (facing == "right")
+            {
+                playerTransform.rotation = Quaternion.Euler(facingRight);
+            }
+            else if (facing == "left")
+            {
+                playerTransform.rotation = Quaternion.Euler(facingLeft);
+            }
         }
+        else
+        {
+            return;
+        }
+
     }
 
     private void LateUpdate()
     {
         DeathCheck();
+        UpdateHealthSlider();
     }
 
-    private void DeathCheck()
+    private void DeathCheck() // checks if player is dead and does stuff
     {
         if (currentHealth <= 0 && dead == false)
         {
@@ -99,15 +144,32 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    public void ChangeHealth(float healthChange)
+    public void TakeDamage(float healthChange) // called from other scripts to change character health
     {
-        currentHealth -= healthChange;
-        print("I should be changing health by -" + healthChange);
+        if (healthChange > armor)
+        {
+            currentHealth = currentHealth - (healthChange - armor);
+        }
+        else
+        {
+            currentHealth = currentHealth - 1f;
+        }
     }
 
-    private void UpdateHealthSlider()
+    public void Heal(float healthChange)
+    {
+        currentHealth += healthChange;
+    }
+
+    private void UpdateHealthSlider() // Updates slider with character health
     {
         slider.value = currentHealth;
+        slider.maxValue = maxHealth;
+    }
+
+    private void SetArmor()
+    {
+        armor = StatHolster.instance.armor;
     }
 
     private void SetJump()
@@ -118,12 +180,6 @@ public class PlayerController : MonoBehaviour {
     private void SetSpeed() //Grabs speed from StatHolster and sets it
     {
         playerSpeed = StatHolster.instance.moveSpeed;
-    }
-
-    void FixedUpdate () {
-        HorizontalMovement();
-        Jumping();
-        BetterJumping();
     }
 
     private void BetterJumping() //Increases fall speed and increases jump height when holding the jump button with clever physics
@@ -151,12 +207,6 @@ public class PlayerController : MonoBehaviour {
 
     private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
     {
-        /*if (collision.gameObject.tag == "Floor")
-        {
-            jumpCharges = StatHolster.instance.jumpCharges;
-            grounded = true;
-        }*/
-
         CircleCollider2D collider = collision.otherCollider as CircleCollider2D;
 
         if (collider != null && collision.gameObject.tag == "Floor")
@@ -166,7 +216,7 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnCollisionEnter2D(Collision2D collision) // freeze character controls and knock them back on being hit
     {
         if (collision.gameObject.tag == "Enemy" && dead == false)
         {

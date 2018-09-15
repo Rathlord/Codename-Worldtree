@@ -7,8 +7,9 @@ public class Envy : PlayerController {
 
 
     [SerializeField] GameObject daggerToThrow;
-    [SerializeField] Transform daggerSpawnRight;
-    [SerializeField] Transform daggerSpawnLeft;
+    [SerializeField] Transform daggerPosition;
+
+    [SerializeField] GameObject projectileHolster;
 
 
     public override void Update()
@@ -21,14 +22,8 @@ public class Envy : PlayerController {
     {
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
-            if (facing == "right")
-            {
-                Instantiate(daggerToThrow, daggerSpawnRight);
-            }
-            else if (facing == "left")
-            {
-                Instantiate(daggerToThrow, daggerSpawnLeft);
-            }
+            GameObject thisDagger = Instantiate(daggerToThrow, daggerPosition);
+            thisDagger.transform.parent = projectileHolster.transform;
         }
     }
 
