@@ -9,6 +9,7 @@ using UnityStandardAssets.CrossPlatformInput;
 public class PlayerController : MonoBehaviour {
 
     public static PlayerController instance;
+    public SFXPlayer SFXPlayer;
     public Slider slider;
 
     [SerializeField] public Transform playerTransform;
@@ -199,7 +200,8 @@ public class PlayerController : MonoBehaviour {
 
          if (jump == true && jumpCharges >= 1 && dead == false)
          {
-             rigidBody.velocity = Vector2.up * jumpVelocity;
+            SFXPlayer.instance.PlayJump();
+            rigidBody.velocity = Vector2.up * jumpVelocity;
             jumpCharges--;
          }
      } 
