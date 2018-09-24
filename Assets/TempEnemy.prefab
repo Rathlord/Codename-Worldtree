@@ -102,8 +102,12 @@ MonoBehaviour:
   attackDistance: 2
   moveSpeed: 25000
   fallMultiplier: 13
+  attackDelay: 2
+  facingLeft: {x: 0, y: -180, z: 0}
+  facingRight: {x: 0, y: 0, z: 0}
   playerController: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
     type: 2}
+  rigidBody: {fileID: 50350959971281942}
 --- !u!212 &212670303086484444
 SpriteRenderer:
   m_ObjectHideFlags: 1

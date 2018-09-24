@@ -9,6 +9,7 @@ public class IrisTaker : EnemyBehavior {
 
     public override void DoAttack()
     {
+        print("Attack?");
         Instantiate(Beam, attackLocation);
     }
 }

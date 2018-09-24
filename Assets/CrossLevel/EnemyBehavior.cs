@@ -16,6 +16,8 @@ public class EnemyBehavior : MonoBehaviour
     float lastAttack; //The current time of the last attack
 
     Transform enemyTransform;
+    [SerializeField] Vector3 facingLeft = new Vector3(0f,-180f,0f);
+    [SerializeField] Vector3 facingRight = new Vector3(0f,0f,0f);
 
     bool isPatrolling = false;
 
@@ -23,7 +25,7 @@ public class EnemyBehavior : MonoBehaviour
 
     float enemyHealth = 40f;
 
-    bool direction;
+    [SerializeField] string facing;
 
     public Rigidbody2D rigidBody;
 
@@ -37,18 +39,40 @@ public class EnemyBehavior : MonoBehaviour
         rigidBody.freezeRotation = true;
     }
 
+    void EnemyFacing() // checks facing of enemy
+    {
+        if (facing == "right")
+            {
+                enemyTransform.rotation = Quaternion.Euler(facingRight);
+            }
+        else if (facing == "left")
+            {
+                enemyTransform.rotation = Quaternion.Euler(facingLeft);
+            }
+    }
+
     public void Attack()
     {
+        Vector3 enemyPos = enemyTransform.position;
+        Vector3 playerPos = playerController.playerTransform.position;
+
         if (lastAttack + attackDelay > Time.time)
         {
             return;
         }
         else
         {
+            if (playerPos.x - enemyPos.x < 0)
+            {
+                facing = "left";
+            }
+            else
+            {
+                facing = "right";
+            }
             lastAttack = Time.time;
-            DoAttack();
+            Invoke("DoAttack", .2f);
         }
-        //print("I should be attacking");
     }
 
     public virtual void DoAttack()
@@ -67,6 +91,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             Destroy(gameObject);
         }
+        EnemyFacing();
     }
 
     private void OnCollisionExit2D(Collision2D collision)
@@ -154,12 +179,14 @@ public class EnemyBehavior : MonoBehaviour
 
         while (Time.time - currenttime <= 2.5f)
         {
+            facing = "right";
             rigidBody.velocity = Vector2.right * 10f;
             yield return null;
         }
 
         while (Time.time - currenttime > 2.5f && Time.time - currenttime < 5f)
         {
+            facing = "left";
             rigidBody.velocity = Vector2.left * 10f;
             yield return null;
         }
@@ -199,11 +226,13 @@ public class EnemyBehavior : MonoBehaviour
             if (playerPos.x - enemyPos.x < 0)
             {
                 //print("I'm moving left!");
+                facing = "left";
                 currentState = State.ApproachingLeft;
             }
             else
             {
                 //print("I'm moving right!");
+                facing = "right";
                 currentState = State.ApproachingRight;
             }
             yield return new WaitForSeconds(.3f);
