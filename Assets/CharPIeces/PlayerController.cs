@@ -8,42 +8,48 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class PlayerController : MonoBehaviour {
 
+    //GAMEOBJECTS//
     public static PlayerController instance;
     public SFXPlayer SFXPlayer;
     public Slider slider;
-
+    public Rigidbody2D rigidBody;
     [SerializeField] public Transform playerTransform;
+    [SerializeField] public GameObject projectileParent;
 
+    //PLAYERSTATS//
     float playerSpeed = 10f;
     float jumpVelocity = 10f;
     float armor;
     bool grounded;
+    int jumpCharges = 1;
     [SerializeField] float currentHealth = 1f;
     [SerializeField] float maxHealth;
     [SerializeField] float enemyCollisionMagnitude = 200f;
+    public bool dead = false;
 
+    //CONTROLS//
     public bool freezeControls = false;
-
-    public Rigidbody2D rigidBody;
     float xThrow;
-
-    int jumpCharges = 1;
-
     [SerializeField] float fallMultiplier = 13f;
     [SerializeField] float lowJumpMultiplier = 5f;
 
+    //DIRECTIONALVARIABLES//
     [SerializeField] Vector3 facingRight;
     [SerializeField] Vector3 facingLeft;
     public string facing;
 
-    public bool dead = false;
-
-    [SerializeField] public GameObject projectileParent;
-
+    //ABILITYVARIABLES//
     public float ability1Damage;
     public float ability2Damage;
     public float ability3Damage;
     public float ability4Damage;
+
+
+
+
+
+
+    ///// SETUP /////
 
 
     void Start () 
@@ -80,50 +86,11 @@ public class PlayerController : MonoBehaviour {
         SetArmor();
     }
 
-
-
-    private void UpdateMaxHealth()
-    {
-        maxHealth = StatHolster.instance.healthMaximum;
-        if (currentHealth > maxHealth)
-        {
-            currentHealth = maxHealth;
-        }
-    }
-
     void FixedUpdate()
     {
         HorizontalMovement();
         Jumping();
         BetterJumping();
-    }
-
-    private void SetAbilityDamage()
-    {
-        ability1Damage = StatHolster.instance.attackDamage;
-        ability2Damage = StatHolster.instance.attackDamage;
-        ability3Damage = StatHolster.instance.attackDamage;
-        ability4Damage = StatHolster.instance.attackDamage;
-    }
-
-    void CharacterFacing() // checks facing of character
-    {
-        if (dead == false)
-        {
-            if (facing == "right")
-            {
-                playerTransform.rotation = Quaternion.Euler(facingRight);
-            }
-            else if (facing == "left")
-            {
-                playerTransform.rotation = Quaternion.Euler(facingLeft);
-            }
-        }
-        else
-        {
-            return;
-        }
-
     }
 
     private void LateUpdate()
@@ -132,34 +99,7 @@ public class PlayerController : MonoBehaviour {
         UpdateHealthSlider();
     }
 
-    private void DeathCheck() // checks if player is dead and does stuff
-    {
-        if (currentHealth <= 0 && dead == false)
-        {
-            freezeControls = true;
-            rigidBody.freezeRotation = false;
-            playerTransform.Rotate(0.0f, 0.0f, 90f, Space.World);
-            dead = true;
-            gameObject.layer = 8;
-        }
-    }
-
-    public void TakeDamage(float healthChange) // called from other scripts to change character health
-    {
-        if (healthChange > armor)
-        {
-            currentHealth = currentHealth - (healthChange - armor);
-        }
-        else
-        {
-            currentHealth = currentHealth - 1f;
-        }
-    }
-
-    public void Heal(float healthChange)
-    {
-        currentHealth += healthChange;
-    }
+    ///// STAT READING & UPDATING /////
 
     private void UpdateHealthSlider() // Updates slider with character health
     {
@@ -181,6 +121,37 @@ public class PlayerController : MonoBehaviour {
     {
         playerSpeed = StatHolster.instance.moveSpeed;
     }
+
+    private void UpdateMaxHealth()
+    {
+        maxHealth = StatHolster.instance.healthMaximum;
+        if (currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+    }
+
+    private void DeathCheck() // checks if player is dead and does stuff
+    {
+        if (currentHealth <= 0 && dead == false)
+        {
+            freezeControls = true;
+            rigidBody.freezeRotation = false;
+            playerTransform.Rotate(0.0f, 0.0f, 90f, Space.World);
+            dead = true;
+            gameObject.layer = 8;
+        }
+    }
+
+    private void SetAbilityDamage()
+    {
+        ability1Damage = StatHolster.instance.attackDamage;
+        ability2Damage = StatHolster.instance.attackDamage;
+        ability3Damage = StatHolster.instance.attackDamage;
+        ability4Damage = StatHolster.instance.attackDamage;
+    }
+
+    ///// PLAYER MOVEMENT CONTROL /////
 
     private void BetterJumping() //Increases fall speed and increases jump height when holding the jump button with clever physics
     {
@@ -205,48 +176,6 @@ public class PlayerController : MonoBehaviour {
             jumpCharges--;
          }
      } 
-
-    private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
-    {
-        CircleCollider2D collider = collision.otherCollider as CircleCollider2D;
-
-        if (collider != null && collision.gameObject.tag == "Floor")
-        {
-            jumpCharges = StatHolster.instance.jumpCharges;
-            grounded = true;
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision) // freeze character controls and knock them back on being hit
-    {
-        if (collision.gameObject.tag == "Enemy" && dead == false)
-        {
-            rigidBody.velocity = new Vector2(0, 0);
-            freezeControls = true;
-            Invoke("Unfreeze", .4f);
-            Vector2 direction = collision.transform.position - gameObject.transform.position;
-            direction.Normalize();
-            //print(direction);
-            rigidBody.AddForce(Vector2.right * -direction * enemyCollisionMagnitude, ForceMode2D.Impulse);
-        }
-    }
-
-    private void Unfreeze()
-    {
-        if (dead == false){
-            freezeControls = false;
-        }
-
-    }
-
-    private void OnCollisionExit2D(Collision2D collision) //Disallow jumping if player not on a floor
-    {
-        if (collision.gameObject.tag == "Floor")
-        {
-            jumpCharges = StatHolster.instance.jumpCharges - 1;
-            grounded = false;
-        }
-    }
 
     private void HorizontalMovement()
     {
@@ -285,10 +214,100 @@ public class PlayerController : MonoBehaviour {
 
     }
 
+    private void Unfreeze()
+    {
+        if (dead == false)
+        {
+            freezeControls = false;
+        }
+
+    }
+
+    void CharacterFacing() // checks facing of character
+    {
+        if (dead == false)
+        {
+            if (facing == "right")
+            {
+                playerTransform.rotation = Quaternion.Euler(facingRight);
+            }
+            else if (facing == "left")
+            {
+                playerTransform.rotation = Quaternion.Euler(facingLeft);
+            }
+        }
+        else
+        {
+            return;
+        }
+
+    }
+
+    ///// SIGNALS /////
+
+    public void TakeDamage(float healthChange) // called from other scripts to change character health
+    {
+        if (healthChange > armor)
+        {
+            currentHealth = currentHealth - (healthChange - armor);
+        }
+        else
+        {
+            currentHealth = currentHealth - 1f;
+        }
+    }
+
+    public void Heal(float healthChange)
+    {
+        currentHealth += healthChange;
+    }
+
     public void ForcedMovement(float verticalVelocity, float horizontalVelocity)
     {
         rigidBody.AddForce(Vector2.up * verticalVelocity, ForceMode2D.Impulse);
         rigidBody.AddForce(Vector2.right * horizontalVelocity, ForceMode2D.Impulse);
+    }
+
+    public void EnemyDeath()
+    {
+        
+    }
+
+
+    ///// COLLISIO BEHAVIOR /////
+
+    private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
+    {
+        CircleCollider2D collider = collision.otherCollider as CircleCollider2D;
+
+        if (collider != null && collision.gameObject.tag == "Floor")
+        {
+            jumpCharges = StatHolster.instance.jumpCharges;
+            grounded = true;
+        }
+    }
+
+    private void OnCollisionEnter2D(Collision2D collision) // freeze character controls and knock them back on being hit
+    {
+        if (collision.gameObject.tag == "Enemy" && dead == false)
+        {
+            rigidBody.velocity = new Vector2(0, 0);
+            freezeControls = true;
+            Invoke("Unfreeze", .4f);
+            Vector2 direction = collision.transform.position - gameObject.transform.position;
+            direction.Normalize();
+            //print(direction);
+            rigidBody.AddForce(Vector2.right * -direction * enemyCollisionMagnitude, ForceMode2D.Impulse);
+        }
+    }
+
+    private void OnCollisionExit2D(Collision2D collision) //Disallow jumping if player not on a floor
+    {
+        if (collision.gameObject.tag == "Floor")
+        {
+            jumpCharges = StatHolster.instance.jumpCharges - 1;
+            grounded = false;
+        }
     }
 
 
