@@ -48,6 +48,8 @@ public class PlayerController : MonoBehaviour {
 
     //ITEMVARIABLES//
     public int fafnirCharges;
+    [SerializeField] public int hrymsCharges;
+    public int hrymsTempCharges;
 
 
 
@@ -240,15 +242,38 @@ public class PlayerController : MonoBehaviour {
 
     ///// SIGNALS /////
 
-    public void TakeDamage(float healthChange) // called from other scripts to change character health
+    public void TakeDamage(float healthChange) // called from other scripts to change character health. Checks against Hryms and armor.
     {
-        if (healthChange > armor)
+        if (hrymsCharges > 0)
         {
-            currentHealth = currentHealth - (healthChange - armor);
+            if (hrymsTempCharges / (11 - hrymsCharges) >= 1)
+            {
+                print("You got saved by Hrym's Shield!!");
+                hrymsTempCharges = 0;
+            }
+            else
+            {
+                if (healthChange > armor)
+                {
+                    currentHealth = currentHealth - (healthChange - armor);
+                }
+                else
+                {
+                    currentHealth = currentHealth - 1f;
+                }
+            }
+            hrymsTempCharges++;
         }
         else
         {
-            currentHealth = currentHealth - 1f;
+            if (healthChange > armor)
+            {
+                currentHealth = currentHealth - (healthChange - armor);
+            }
+            else
+            {
+                currentHealth = currentHealth - 1f;
+            }
         }
     }
 
