@@ -6,7 +6,7 @@ public class OdinsMail : ItemParent {
 
     public override void ItemActions()
     {
-        StatHolster.instance.AddArmor(3f);
+        PlayerController.instance.AddArmor(3f);
     }
 
 }

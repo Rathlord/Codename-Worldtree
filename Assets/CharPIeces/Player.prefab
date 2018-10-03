@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 50990944410966848}
   - component: {fileID: 61818962197021990}
   - component: {fileID: 114232937390920512}
-  - component: {fileID: 114983146673464958}
   - component: {fileID: 114393817247049520}
   - component: {fileID: 114237983148154422}
   - component: {fileID: 58748867022264336}
@@ -70,7 +69,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1514350284441724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 67.03, y: -10.97, z: 0}
+  m_LocalPosition: {x: 53.12, y: -5.36, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0.21923515}
   m_Children:
   - {fileID: 4311006761814720}
@@ -169,19 +168,25 @@ MonoBehaviour:
   SFXPlayer: {fileID: 114847740950267010, guid: 84d3dd241e9774a5da95da7b01d75737,
     type: 2}
   slider: {fileID: 0}
-  playerTransform: {fileID: 4494834071937358}
-  currentHealth: 100
-  maxHealth: 100
-  enemyCollisionMagnitude: 200
-  freezeControls: 0
   rigidBody: {fileID: 50990944410966848}
+  playerTransform: {fileID: 4494834071937358}
+  projectileParent: {fileID: 0}
+  moveSpeed: 30000
+  jumpVelocity: 70
+  bonusJumpCharges: 0
+  tempJumpCharges: 0
+  healthMaximum: 100
+  attackDamage: 10
+  armor: 0
+  currentHealth: 100
+  enemyCollisionMagnitude: 200
+  dead: 0
+  freezeControls: 0
   fallMultiplier: 13
   lowJumpMultiplier: 5
   facingRight: {x: 0, y: 0, z: 0}
   facingLeft: {x: 0, y: -180, z: 0}
   facing: 
-  dead: 0
-  projectileParent: {fileID: 0}
   ability1Damage: 10
   ability2Damage: 10
   ability3Damage: 10
@@ -212,23 +217,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d5af772daf97481f9c97874cb351519, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &114983146673464958
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514350284441724}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: e049556fdcc3fc14f93dbebced21c6ab, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 65000
-  jumpVelocity: 70
-  jumpCharges: 1
-  healthMaximum: 100
-  attackDamage: 10
-  armor: 0
 --- !u!212 &212778961245481224
 SpriteRenderer:
   m_ObjectHideFlags: 1

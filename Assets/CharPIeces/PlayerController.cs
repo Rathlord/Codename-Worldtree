@@ -17,13 +17,15 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] public GameObject projectileParent;
 
     //PLAYERSTATS//
-    float playerSpeed = 10f;
-    float jumpVelocity = 10f;
-    float armor;
+    public float moveSpeed = 30000f;
+    public float jumpVelocity = 70f;
+    public int bonusJumpCharges;
+    public int tempJumpCharges;
+    public float healthMaximum = 100f;
+    public float attackDamage = 10f;
+    public float armor;
     bool grounded;
-    int jumpCharges = 1;
     [SerializeField] float currentHealth = 1f;
-    [SerializeField] float maxHealth;
     [SerializeField] float enemyCollisionMagnitude = 200f;
     public bool dead = false;
 
@@ -58,8 +60,9 @@ public class PlayerController : MonoBehaviour {
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
-        currentHealth = StatHolster.instance.healthMaximum;
+        currentHealth = healthMaximum;
         print("I'm at least starting right?");
+        tempJumpCharges = bonusJumpCharges; //Give the player an initial jump charge
 	}
     
 
@@ -80,12 +83,9 @@ public class PlayerController : MonoBehaviour {
 
     public virtual void Update()
     {
-        UpdateMaxHealth();
-        SetSpeed();
-        SetJump();
+        MaxHealthCap();
         CharacterFacing();
-        SetAbilityDamage();
-        SetArmor();
+        UpdateAbilityDamage();
     }
 
     void FixedUpdate()
@@ -106,30 +106,14 @@ public class PlayerController : MonoBehaviour {
     private void UpdateHealthSlider() // Updates slider with character health
     {
         slider.value = currentHealth;
-        slider.maxValue = maxHealth;
+        slider.maxValue = healthMaximum;
     }
 
-    private void SetArmor()
+    private void MaxHealthCap()
     {
-        armor = StatHolster.instance.armor;
-    }
-
-    private void SetJump()
-    {
-        jumpVelocity = StatHolster.instance.jumpVelocity;
-    }
-
-    private void SetSpeed() //Grabs speed from StatHolster and sets it
-    {
-        playerSpeed = StatHolster.instance.moveSpeed;
-    }
-
-    private void UpdateMaxHealth()
-    {
-        maxHealth = StatHolster.instance.healthMaximum;
-        if (currentHealth > maxHealth)
+        if (currentHealth > healthMaximum)
         {
-            currentHealth = maxHealth;
+            currentHealth = healthMaximum;
         }
     }
 
@@ -145,12 +129,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void SetAbilityDamage()
+    private void UpdateAbilityDamage()
     {
-        ability1Damage = StatHolster.instance.attackDamage;
-        ability2Damage = StatHolster.instance.attackDamage;
-        ability3Damage = StatHolster.instance.attackDamage;
-        ability4Damage = StatHolster.instance.attackDamage;
+        ability1Damage = attackDamage;
+        ability1Damage = attackDamage;
+        ability1Damage = attackDamage;
+        ability1Damage = attackDamage;
     }
 
     ///// PLAYER MOVEMENT CONTROL /////
@@ -171,12 +155,21 @@ public class PlayerController : MonoBehaviour {
      {
          bool jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
-         if (jump == true && jumpCharges >= 1 && dead == false)
+         if (jump == true && grounded == true && dead == false)
          {
             SFXPlayer.instance.PlayJump();
             rigidBody.velocity = Vector2.up * jumpVelocity;
-            jumpCharges--;
          }
+         else if (jump == true && tempJumpCharges > 0 && dead == false)
+         {
+            SFXPlayer.instance.PlayJump();
+            rigidBody.velocity = Vector2.up * jumpVelocity;
+            tempJumpCharges--;
+         }
+        else
+        {
+            return;
+        }
      } 
 
     private void HorizontalMovement()
@@ -192,7 +185,7 @@ public class PlayerController : MonoBehaviour {
             facing = "left";
         }
 
-        float horizontalMovement = xThrow * playerSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
+        float horizontalMovement = xThrow * moveSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
         if (freezeControls == false)
         {
@@ -275,6 +268,41 @@ public class PlayerController : MonoBehaviour {
         Fafnir();
     }
 
+    public void AddArmor(float changeValue)
+    {
+        armor += changeValue;
+    }
+
+    public void AddattackDamage(float changeValue)
+    {
+        attackDamage += changeValue;
+    }
+
+    public void AddMaxHealth(float changeValue)
+    {
+        healthMaximum += changeValue;
+    }
+
+    public void AddMoveSpeed(float changeValue) //Called from other classes to add to speed value
+    {
+        moveSpeed += changeValue;
+    }
+
+    public void MultiplyMoveSpeed(float changeValue) //Called from other classes to multiplicatively add to speed value
+    {
+        moveSpeed *= changeValue;
+    }
+
+    public void AddJumpSpeed(float changeValue) //Called from other classes to add to jump value
+    {
+        jumpVelocity += changeValue;
+    }
+
+    public void MultiplyJumpSpeed(float changeValue) //Called from other classes to multiplicatively add to jump value
+    {
+        jumpVelocity *= changeValue;
+    }
+
     ///// ITEM BEHAVIOR /////
 
     private void Fafnir()
@@ -299,7 +327,7 @@ public class PlayerController : MonoBehaviour {
 
         if (collider != null && collision.gameObject.tag == "Floor")
         {
-            jumpCharges = StatHolster.instance.jumpCharges;
+            tempJumpCharges = bonusJumpCharges;
             grounded = true;
         }
     }
@@ -322,7 +350,6 @@ public class PlayerController : MonoBehaviour {
     {
         if (collision.gameObject.tag == "Floor")
         {
-            jumpCharges = StatHolster.instance.jumpCharges - 1;
             grounded = false;
         }
     }

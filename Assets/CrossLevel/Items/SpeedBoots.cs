@@ -6,7 +6,7 @@ public class SpeedBoots : ItemParent {
 
     public override void ItemActions()
     {
-        StatHolster.instance.AddMoveSpeed(5000f);
+        PlayerController.instance.AddMoveSpeed(5000f);
     }
 
 }
