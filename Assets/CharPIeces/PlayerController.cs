@@ -44,6 +44,8 @@ public class PlayerController : MonoBehaviour {
     public float ability3Damage;
     public float ability4Damage;
 
+    //ITEMVARIABLES//
+    int fafnirCharges;
 
 
 
@@ -270,11 +272,26 @@ public class PlayerController : MonoBehaviour {
 
     public void EnemyDeath()
     {
-        
+        Fafnir();
+    }
+
+    ///// ITEM BEHAVIOR /////
+
+    private void Fafnir()
+    {
+        if (fafnirCharges == 0)
+        {
+            return;
+        }
+        else
+        {
+            currentHealth = currentHealth + fafnirCharges;
+            // maxHealth = 
+        }
     }
 
 
-    ///// COLLISIO BEHAVIOR /////
+    ///// COLLISION BEHAVIOR /////
 
     private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
     {
