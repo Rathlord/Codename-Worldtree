@@ -52,7 +52,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1759994130917804}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 51.28, y: -4.77, z: 0}
+  m_LocalPosition: {x: 76.63, y: -10.12, z: 0}
   m_LocalScale: {x: 3, y: 3, z: 1}
   m_Children:
   - {fileID: 4317370729299506}
@@ -135,6 +135,7 @@ MonoBehaviour:
   facingLeft: {x: 0, y: 0, z: 0}
   facingRight: {x: 0, y: -180, z: 0}
   playerController: {fileID: 0}
+  facing: 
   rigidBody: {fileID: 50920322699036264}
   Beam: {fileID: 1507293057329392, guid: d942aec40ad21451eb91bca4ebc7a575, type: 2}
   attackLocation: {fileID: 4317370729299506}

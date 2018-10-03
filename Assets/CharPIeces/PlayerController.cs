@@ -47,7 +47,7 @@ public class PlayerController : MonoBehaviour {
     public float ability4Damage;
 
     //ITEMVARIABLES//
-    int fafnirCharges;
+    public int fafnirCharges;
 
 
 
@@ -314,7 +314,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
             currentHealth = currentHealth + fafnirCharges;
-            // maxHealth = 
+            healthMaximum = healthMaximum + fafnirCharges; 
         }
     }
 
