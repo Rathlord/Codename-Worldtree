@@ -3105,19 +3105,14 @@ Prefab:
       propertyPath: m_RootOrder
       value: 23
       objectReference: {fileID: 0}
-    - target: {fileID: 1759994130917804, guid: a107d9cabdcbb4014ad816778765dbf8, type: 2}
-      propertyPath: m_Name
-      value: IrisTaker (3)
-      objectReference: {fileID: 0}
     - target: {fileID: 114908439538715750, guid: a107d9cabdcbb4014ad816778765dbf8,
         type: 2}
       propertyPath: playerController
       value: 
       objectReference: {fileID: 872144045}
-    - target: {fileID: 114908439538715750, guid: a107d9cabdcbb4014ad816778765dbf8,
-        type: 2}
-      propertyPath: fallMultiplier
-      value: 130
+    - target: {fileID: 1759994130917804, guid: a107d9cabdcbb4014ad816778765dbf8, type: 2}
+      propertyPath: m_Name
+      value: IrisTaker (3)
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a107d9cabdcbb4014ad816778765dbf8, type: 2}
