@@ -5,6 +5,9 @@ using UnityEngine;
 
 public class EnemyBehavior : MonoBehaviour
 {
+    public static EnemyBehavior instance;
+
+    [SerializeField] float enemyHealth = 40f;
 
     [SerializeField] enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling, Falling };
     State currentState;
@@ -16,20 +19,24 @@ public class EnemyBehavior : MonoBehaviour
     float lastAttack; //The current time of the last attack
 
     Transform enemyTransform;
-    [SerializeField] Vector3 facingLeft = new Vector3(0f,-180f,0f);
-    [SerializeField] Vector3 facingRight = new Vector3(0f,0f,0f);
+    [SerializeField] Vector3 facingLeft = new Vector3(0f, -180f, 0f);
+    [SerializeField] Vector3 facingRight = new Vector3(0f, 0f, 0f);
 
     bool isPatrolling = false;
 
     public PlayerController playerController;
 
-    float enemyHealth = 40f;
-
     [SerializeField] string facing;
 
     public Rigidbody2D rigidBody;
 
+    bool poisoned;
 
+
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start() //Basic setup and starting position checking for AI
     {
@@ -42,13 +49,13 @@ public class EnemyBehavior : MonoBehaviour
     void EnemyFacing() // checks facing of enemy
     {
         if (facing == "right")
-            {
-                enemyTransform.rotation = Quaternion.Euler(facingRight);
-            }
+        {
+            enemyTransform.rotation = Quaternion.Euler(facingRight);
+        }
         else if (facing == "left")
-            {
-                enemyTransform.rotation = Quaternion.Euler(facingLeft);
-            }
+        {
+            enemyTransform.rotation = Quaternion.Euler(facingLeft);
+        }
     }
 
     public void Attack()
@@ -77,13 +84,9 @@ public class EnemyBehavior : MonoBehaviour
 
     public virtual void DoAttack()
     {
-        
+
     }
 
-    void EnemyTakeDamage(int damage)
-    {
-        enemyHealth = enemyHealth - damage;
-    }
 
     private void Update()
     {
@@ -94,16 +97,13 @@ public class EnemyBehavior : MonoBehaviour
         EnemyFacing();
     }
 
-    private void OnCollisionExit2D(Collision2D collision)
+    /*public void Falling()
     {
-        if (collision.gameObject.tag == "Floor")
-        {
-            print("Fucking stop patrolling");
-            StopAllCoroutines();
-            StartCoroutine("PositionCheck");
-            isPatrolling = false;
-        }
-    }
+        print("Stop patrolling you're falling.");
+        StopAllCoroutines();
+        StartCoroutine("PositionCheck");
+        isPatrolling = false;
+    }*/
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
@@ -114,20 +114,57 @@ public class EnemyBehavior : MonoBehaviour
         }
         if (collision.gameObject.tag == "Ability1")
         {
-            enemyHealth -= playerController.ability1Damage;
+            float damage = playerController.ability1Damage;
+            EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability2")
         {
-            enemyHealth -= playerController.ability2Damage;
+            float damage = playerController.ability2Damage;
+            EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability3")
         {
-            enemyHealth -= playerController.ability3Damage;
+            float damage = playerController.ability3Damage;
+            EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability4")
         {
-            enemyHealth -= playerController.ability4Damage;
+            float damage = playerController.ability4Damage;
+            EnemyTakeDamage(damage);
         }
+    }
+
+    public void EnemyTakeDamage(float damage)
+    {
+        if (playerController.nineStepPoison > 0)
+        {
+            StartCoroutine("Poison");
+        }
+        enemyHealth = enemyHealth - damage;
+    }
+
+    IEnumerator Poison()
+    {
+        poisoned = true;
+        int poisonStrength = 1;
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
+        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        yield return new WaitForSeconds(.75f);
     }
 
     private void FixedUpdate()
@@ -180,14 +217,18 @@ public class EnemyBehavior : MonoBehaviour
         while (Time.time - currenttime <= 2.5f)
         {
             facing = "right";
-            rigidBody.velocity = Vector2.right * 10f;
+            var v2 = Vector2.right * 10f; // set the x velocity for patrolling
+            v2.y = rigidBody.velocity.y; // set the y velocity to the same as rigidBody y velocity so you don't interupt it
+            rigidBody.velocity = v2; // set the new velocity (x that you set, y that it already had)
             yield return null;
         }
 
         while (Time.time - currenttime > 2.5f && Time.time - currenttime < 5f)
         {
             facing = "left";
-            rigidBody.velocity = Vector2.left * 10f;
+            var v2 = Vector2.left * 10f; // set the x velocity for patrolling
+            v2.y = rigidBody.velocity.y; // set the y velocity to the same as rigidBody y velocity so you don't interupt it
+            rigidBody.velocity = v2; // set the new velocity (x that you set, y that it already had)
             yield return null;
         }
 
@@ -203,8 +244,11 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 enemyPos = enemyTransform.position;
         Vector3 playerPos = playerController.playerTransform.position;
 
+        print(rigidBody.velocity.y);
+
         if (rigidBody.velocity.y < 0)
         {
+            StopCoroutine("Patrolling");
             print("I'm in the falling state");
             currentState = State.Falling;
             yield return new WaitForSeconds(.2f);

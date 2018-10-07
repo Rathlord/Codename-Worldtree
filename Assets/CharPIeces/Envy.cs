@@ -15,16 +15,13 @@ public class Envy : PlayerController {
     public override void Update()
     {
         base.Update();
-        AbilityOne();
     }
 
-    void AbilityOne()
+    public override void AbilityOne()
     {
-        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
-        {
-            GameObject thisDagger = Instantiate(daggerToThrow, daggerPosition);
-            thisDagger.transform.parent = projectileHolster.transform;
-        }
+        print("Is this working?");
+        GameObject thisDagger = Instantiate(daggerToThrow, daggerPosition);
+        thisDagger.transform.parent = projectileHolster.transform;
     }
 
 

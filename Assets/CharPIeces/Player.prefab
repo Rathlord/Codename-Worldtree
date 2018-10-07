@@ -171,7 +171,7 @@ MonoBehaviour:
   rigidBody: {fileID: 50990944410966848}
   playerTransform: {fileID: 4494834071937358}
   projectileParent: {fileID: 0}
-  moveSpeed: 30000
+  moveSpeed: 37500
   jumpVelocity: 70
   bonusJumpCharges: 0
   tempJumpCharges: 0
@@ -191,6 +191,10 @@ MonoBehaviour:
   ability2Damage: 10
   ability3Damage: 10
   ability4Damage: 10
+  fafnirCharges: 0
+  hrymsCharges: 0
+  hrymsTempCharges: 0
+  nineStepPoison: 0
   daggerToThrow: {fileID: 1829199243437778, guid: cacf00cec2f994d6fa69342e34ba20ca,
     type: 2}
   daggerPosition: {fileID: 4311006761814720}

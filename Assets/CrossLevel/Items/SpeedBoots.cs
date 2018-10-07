@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class SpeedBoots : ItemParent {
 
+
     public override void ItemActions()
     {
-        PlayerController.instance.AddMoveSpeed(5000f);
+        PlayerController.instance.bonusFlatMoveSpeed += 5000f;
     }
 
 }

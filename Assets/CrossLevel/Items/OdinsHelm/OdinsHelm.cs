@@ -7,7 +7,7 @@ public class OdinsHelm : ItemParent {
 
     public override void ItemActions()
     {
-        PlayerController.instance.AddMaxHealth(50f);
+        PlayerController.instance.healthMaximum += 50f;
         PlayerController.instance.Heal(50f);
     }
 

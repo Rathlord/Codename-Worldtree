@@ -4,39 +4,66 @@ using UnityEngine;
 
 public class ActivatedItemBehavior : MonoBehaviour {
 
+    public static ActivatedItemBehavior instance;
     public delegate void ActivatedItemDelegate();
     public static event ActivatedItemDelegate ActivatedItem;
 
+    // Each item needs a GotThing to add it to the ActivatedItem event, and a DoThing to tell it what to actually do
 
-    void Start()
+    void Awake()
     {
-        
+        instance = this;
+        ActivatedItem += DoNothing;
     }
 
-    void ItemPickedUp()
+    public void ActivateItem()
     {
-        ActivatedItem -= DoThing1;
-        ActivatedItem -= DoThing2;
+        ActivatedItem();
     }
 
-    void GotThing1()
+    void ItemPickedUp() // Remove all DoThings when an item is picked up
     {
-        ActivatedItem += DoThing1;
+        ActivatedItem -= DoNothing;
+        ActivatedItem -= DoTyrfing;
+        ActivatedItem -= DoThingTemplate;
     }
 
-    void GotThing2()
+    public void GotTyrfing() // Got an item, clear item list and then add it to ActivatedItem
     {
-        ActivatedItem += DoThing2;
+        ItemPickedUp();
+        ActivatedItem += DoTyrfing;
     }
 
-    void DoThing1()
+    public void GotThingTemplate() // Got an item, clear item list and then add it to ActivatedItem
     {
-        
+        ItemPickedUp();
+        ActivatedItem += DoThingTemplate;
     }
 
-    void DoThing2()
+    void DoNothing() // Empty item to start game with... achieve for finishing with it? Prevents nullpointer
     {
-        
+        print("you can't use nothing!");
+    }
+
+    void DoTyrfing() // Do thing associated with picking up Tyrfing
+    {
+        PlayerController.instance.bonusMultAttackDamage+=1;
+        int outcome = Random.Range(0, 10);
+        if (outcome == 0)
+        {
+            PlayerController.instance.currentHealth = PlayerController.instance.currentHealth * .3f;
+        }
+        Invoke("EndTyrfing", 7f);
+    }
+
+    void DoThingTemplate() // Do thing associated with picking up Thing2
+    {
+
+    }
+
+    void EndTyrfing()
+    {
+        PlayerController.instance.bonusMultAttackDamage -= 1;
     }
 
 }

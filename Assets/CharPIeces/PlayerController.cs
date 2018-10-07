@@ -17,15 +17,21 @@ public class PlayerController : MonoBehaviour {
     [SerializeField] public GameObject projectileParent;
 
     //PLAYERSTATS//
-    public float moveSpeed = 30000f;
-    public float jumpVelocity = 70f;
+    [SerializeField] public float currentHealth = 1f;
+    public float baseMoveSpeed = 30000f;
+    public float bonusFlatMoveSpeed = 0f;
+    public float bonusMultMoveSpeed = 1f;
+    public float baseJumpVelocity = 70f;
+    public float bonusFlatJumpVelocity;
     public int bonusJumpCharges;
     public int tempJumpCharges;
     public float healthMaximum = 100f;
-    public float attackDamage = 10f;
+    public float baseAttackDamage = 10f;
+    float attackDamage;
+    public float bonusFlatAttackDamage;
+    public float bonusMultAttackDamage;
     public float armor;
     bool grounded;
-    [SerializeField] float currentHealth = 1f;
     [SerializeField] float enemyCollisionMagnitude = 200f;
     public bool dead = false;
 
@@ -48,8 +54,10 @@ public class PlayerController : MonoBehaviour {
 
     //ITEMVARIABLES//
     public int fafnirCharges;
-    [SerializeField] public int hrymsCharges;
+    public int hrymsCharges;
     public int hrymsTempCharges;
+    public int nineStepPoison;
+
 
 
 
@@ -66,7 +74,7 @@ public class PlayerController : MonoBehaviour {
         print("I'm at least starting right?");
         tempJumpCharges = bonusJumpCharges; //Give the player an initial jump charge
 	}
-    
+
 
     private void Awake()
     {
@@ -85,9 +93,12 @@ public class PlayerController : MonoBehaviour {
 
     public virtual void Update()
     {
+        attackDamage = (baseAttackDamage + bonusFlatAttackDamage) * bonusMultAttackDamage;
         MaxHealthCap();
         CharacterFacing();
         UpdateAbilityDamage();
+        Controls();
+        CalculateAttackDamage();
     }
 
     void FixedUpdate()
@@ -131,7 +142,12 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
-    private void UpdateAbilityDamage()
+    private void CalculateAttackDamage()
+    {
+        attackDamage = (baseAttackDamage + bonusFlatAttackDamage) * bonusMultAttackDamage;
+    }
+
+    public virtual void UpdateAbilityDamage()
     {
         ability1Damage = attackDamage;
         ability1Damage = attackDamage;
@@ -139,7 +155,57 @@ public class PlayerController : MonoBehaviour {
         ability1Damage = attackDamage;
     }
 
-    ///// PLAYER MOVEMENT CONTROL /////
+
+    ///// PLAYER CONTROLS /////
+
+
+    void Controls()
+    {
+        if (CrossPlatformInputManager.GetButtonDown("Fire1"))
+        {
+            AbilityOne();
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Fire2"))
+        {
+            AbilityTwo();
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Fire3"))
+        {
+            AbilityThree();
+        }
+        if (CrossPlatformInputManager.GetButtonDown("Fire4"))
+        {
+            AbilityFour();
+        }
+        if (CrossPlatformInputManager.GetButtonDown("ActiveItem"))
+        {
+            ActivatedItemBehavior.instance.ActivateItem(); // Use the activated item
+        }
+        if (CrossPlatformInputManager.GetButtonDown("UseItem"))
+        {
+            UseItemBehavior.instance.UseItem(); // Use the use item
+        }
+    }
+
+    public virtual void AbilityOne()
+    {
+        print("This is the wrong thing");
+    }
+
+    public virtual void AbilityTwo()
+    {
+
+    }
+
+    public virtual void AbilityThree()
+    {
+
+    }
+
+    public virtual void AbilityFour()
+    {
+
+    }
 
     private void BetterJumping() //Increases fall speed and increases jump height when holding the jump button with clever physics
     {
@@ -160,12 +226,12 @@ public class PlayerController : MonoBehaviour {
          if (jump == true && grounded == true && dead == false)
          {
             SFXPlayer.instance.PlayJump();
-            rigidBody.velocity = Vector2.up * jumpVelocity;
+            rigidBody.velocity = Vector2.up * (baseJumpVelocity+ bonusFlatJumpVelocity);
          }
          else if (jump == true && tempJumpCharges > 0 && dead == false)
          {
             SFXPlayer.instance.PlayJump();
-            rigidBody.velocity = Vector2.up * jumpVelocity;
+            rigidBody.velocity = Vector2.up * (baseJumpVelocity + bonusFlatJumpVelocity);
             tempJumpCharges--;
          }
         else
@@ -187,7 +253,7 @@ public class PlayerController : MonoBehaviour {
             facing = "left";
         }
 
-        float horizontalMovement = xThrow * moveSpeed * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
+        float horizontalMovement = xThrow * ((baseMoveSpeed + bonusFlatMoveSpeed) * bonusMultMoveSpeed)* Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
         if (freezeControls == false)
         {
@@ -291,41 +357,6 @@ public class PlayerController : MonoBehaviour {
     public void EnemyDeath()
     {
         Fafnir();
-    }
-
-    public void AddArmor(float changeValue)
-    {
-        armor += changeValue;
-    }
-
-    public void AddattackDamage(float changeValue)
-    {
-        attackDamage += changeValue;
-    }
-
-    public void AddMaxHealth(float changeValue)
-    {
-        healthMaximum += changeValue;
-    }
-
-    public void AddMoveSpeed(float changeValue) //Called from other classes to add to speed value
-    {
-        moveSpeed += changeValue;
-    }
-
-    public void MultiplyMoveSpeed(float changeValue) //Called from other classes to multiplicatively add to speed value
-    {
-        moveSpeed *= changeValue;
-    }
-
-    public void AddJumpSpeed(float changeValue) //Called from other classes to add to jump value
-    {
-        jumpVelocity += changeValue;
-    }
-
-    public void MultiplyJumpSpeed(float changeValue) //Called from other classes to multiplicatively add to jump value
-    {
-        jumpVelocity *= changeValue;
     }
 
     ///// ITEM BEHAVIOR /////
