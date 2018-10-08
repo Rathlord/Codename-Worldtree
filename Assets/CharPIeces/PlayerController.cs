@@ -57,6 +57,7 @@ public class PlayerController : MonoBehaviour {
     public int hrymsCharges;
     public int hrymsTempCharges;
     public int nineStepPoison;
+    public int yggDewCharges;
 
 
 
@@ -374,6 +375,15 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    public void YggDew() // Begin Ygg healing when item first picked up
+    {
+        InvokeRepeating("YggRegen", 5f, 5f);
+    }
+
+    private void YggRegen()
+    {
+        currentHealth += yggDewCharges;
+    }
 
     ///// COLLISION BEHAVIOR /////
 

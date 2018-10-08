@@ -14,7 +14,7 @@ public class EnemyBehavior : MonoBehaviour
 
     [SerializeField] float attackDistance = 3f; //Distance within the enemy will stop to attack the player
     [SerializeField] float moveSpeed = 25000f; //Movement speed factor of the enemy
-    [SerializeField] float fallMultiplier = 13f;
+    [SerializeField] float fallMultiplier = 25f;
     [SerializeField] float attackDelay = 2f; //Time between attacks
     float lastAttack; //The current time of the last attack
 
@@ -136,7 +136,7 @@ public class EnemyBehavior : MonoBehaviour
 
     public void EnemyTakeDamage(float damage)
     {
-        if (playerController.nineStepPoison > 0)
+        if (playerController.nineStepPoison > 0 && poisoned == false)
         {
             StartCoroutine("Poison");
         }
@@ -146,7 +146,7 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator Poison()
     {
         poisoned = true;
-        int poisonStrength = 1;
+        int poisonStrength = 1; // Multiplier for poison damage. 1 seems reasonable.
         enemyHealth -= (playerController.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
         enemyHealth -= (playerController.nineStepPoison * poisonStrength);
@@ -165,6 +165,7 @@ public class EnemyBehavior : MonoBehaviour
         yield return new WaitForSeconds(.75f);
         enemyHealth -= (playerController.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
+        poisoned = false;
     }
 
     private void FixedUpdate()
@@ -244,7 +245,6 @@ public class EnemyBehavior : MonoBehaviour
         Vector3 enemyPos = enemyTransform.position;
         Vector3 playerPos = playerController.playerTransform.position;
 
-        print(rigidBody.velocity.y);
 
         if (rigidBody.velocity.y < 0)
         {
