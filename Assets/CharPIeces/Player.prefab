@@ -25,11 +25,26 @@ GameObject:
   - component: {fileID: 114232937390920512}
   - component: {fileID: 114393817247049520}
   - component: {fileID: 114237983148154422}
-  - component: {fileID: 58748867022264336}
   - component: {fileID: 95264756607358648}
   m_Layer: 10
   m_Name: Player
   m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!1 &1549266411964990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4817997237037102}
+  - component: {fileID: 58705642470781308}
+  m_Layer: 10
+  m_Name: Feet
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -69,12 +84,26 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1514350284441724}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 53.12, y: -5.36, z: 0}
+  m_LocalPosition: {x: -55.6, y: -21.3, z: 0}
   m_LocalScale: {x: 5, y: 5, z: 0.21923515}
   m_Children:
   - {fileID: 4311006761814720}
+  - {fileID: 4817997237037102}
   m_Father: {fileID: 0}
   m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &4817997237037102
+Transform:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1549266411964990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4494834071937358}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!50 &50990944410966848
 Rigidbody2D:
@@ -96,12 +125,12 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!58 &58748867022264336
+--- !u!58 &58705642470781308
 CircleCollider2D:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1514350284441724}
+  m_GameObject: {fileID: 1549266411964990}
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 6200000, guid: 07cfa985e832c9e4ca8125ca4c60b1e5, type: 2}
@@ -171,18 +200,23 @@ MonoBehaviour:
   rigidBody: {fileID: 50990944410966848}
   playerTransform: {fileID: 4494834071937358}
   projectileParent: {fileID: 0}
-  moveSpeed: 37500
-  jumpVelocity: 70
+  currentHealth: 100
+  baseMoveSpeed: 45000
+  bonusFlatMoveSpeed: 0
+  bonusMultMoveSpeed: 1
+  baseJumpVelocity: 70
+  bonusFlatJumpVelocity: 0
   bonusJumpCharges: 0
   tempJumpCharges: 0
   healthMaximum: 100
-  attackDamage: 10
+  baseAttackDamage: 10
+  bonusFlatAttackDamage: 0
+  bonusMultAttackDamage: 1
   armor: 0
-  currentHealth: 100
   enemyCollisionMagnitude: 200
   dead: 0
   freezeControls: 0
-  fallMultiplier: 13
+  fallMultiplier: 25
   lowJumpMultiplier: 5
   facingRight: {x: 0, y: 0, z: 0}
   facingLeft: {x: 0, y: -180, z: 0}
@@ -195,6 +229,7 @@ MonoBehaviour:
   hrymsCharges: 0
   hrymsTempCharges: 0
   nineStepPoison: 0
+  yggDewCharges: 0
   daggerToThrow: {fileID: 1829199243437778, guid: cacf00cec2f994d6fa69342e34ba20ca,
     type: 2}
   daggerPosition: {fileID: 4311006761814720}
