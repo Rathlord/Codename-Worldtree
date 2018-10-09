@@ -29,7 +29,7 @@ public class PlayerController : MonoBehaviour {
     public float baseAttackDamage = 10f;
     float attackDamage;
     public float bonusFlatAttackDamage;
-    public float bonusMultAttackDamage;
+    public float bonusMultAttackDamage = 1;
     public float armor;
     bool grounded;
     [SerializeField] float enemyCollisionMagnitude = 200f;
@@ -151,9 +151,9 @@ public class PlayerController : MonoBehaviour {
     public virtual void UpdateAbilityDamage()
     {
         ability1Damage = attackDamage;
-        ability1Damage = attackDamage;
-        ability1Damage = attackDamage;
-        ability1Damage = attackDamage;
+        ability2Damage = attackDamage;
+        ability3Damage = attackDamage;
+        ability4Damage = attackDamage;
     }
 
 

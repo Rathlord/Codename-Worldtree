@@ -24,7 +24,7 @@ public class EnemyBehavior : MonoBehaviour
 
     bool isPatrolling = false;
 
-    public PlayerController playerController;
+    // public PlayerController playerController;
 
     [SerializeField] string facing;
 
@@ -61,7 +61,7 @@ public class EnemyBehavior : MonoBehaviour
     public void Attack()
     {
         Vector3 enemyPos = enemyTransform.position;
-        Vector3 playerPos = playerController.playerTransform.position;
+        Vector3 playerPos = PlayerController.instance.playerTransform.position;
 
         if (lastAttack + attackDelay > Time.time)
         {
@@ -110,33 +110,33 @@ public class EnemyBehavior : MonoBehaviour
         if (collision.gameObject.tag == "Player")
         {
             // print("Collided with player should do damage");
-            playerController.TakeDamage(10);
+            PlayerController.instance.TakeDamage(10);
         }
         if (collision.gameObject.tag == "Ability1")
         {
-            float damage = playerController.ability1Damage;
+            float damage = PlayerController.instance.ability1Damage;
             EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability2")
         {
-            float damage = playerController.ability2Damage;
+            float damage = PlayerController.instance.ability2Damage;
             EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability3")
         {
-            float damage = playerController.ability3Damage;
+            float damage = PlayerController.instance.ability3Damage;
             EnemyTakeDamage(damage);
         }
         if (collision.gameObject.tag == "Ability4")
         {
-            float damage = playerController.ability4Damage;
+            float damage = PlayerController.instance.ability4Damage;
             EnemyTakeDamage(damage);
         }
     }
 
     public void EnemyTakeDamage(float damage)
     {
-        if (playerController.nineStepPoison > 0 && poisoned == false)
+        if (PlayerController.instance.nineStepPoison > 0 && poisoned == false)
         {
             StartCoroutine("Poison");
         }
@@ -147,23 +147,23 @@ public class EnemyBehavior : MonoBehaviour
     {
         poisoned = true;
         int poisonStrength = 1; // Multiplier for poison damage. 1 seems reasonable.
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
-        enemyHealth -= (playerController.nineStepPoison * poisonStrength);
+        enemyHealth -= (PlayerController.instance.nineStepPoison * poisonStrength);
         yield return new WaitForSeconds(.75f);
         poisoned = false;
     }
@@ -243,10 +243,10 @@ public class EnemyBehavior : MonoBehaviour
     IEnumerator PositionCheck() //Check the position of the enemy relevant to player position
     {
         Vector3 enemyPos = enemyTransform.position;
-        Vector3 playerPos = playerController.playerTransform.position;
+        Vector3 playerPos = PlayerController.instance.playerTransform.position;
 
 
-        if (rigidBody.velocity.y < 0)
+        if (rigidBody.velocity.y < -0.1f)
         {
             StopCoroutine("Patrolling");
             print("I'm in the falling state");
