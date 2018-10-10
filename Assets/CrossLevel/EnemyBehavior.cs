@@ -253,7 +253,7 @@ public class EnemyBehavior : MonoBehaviour
             currentState = State.Falling;
             yield return new WaitForSeconds(.2f);
         }
-        else if (Mathf.Abs(playerPos.y - enemyPos.y) >= 5f) //If the y distance is too far apart, patrol
+        else if (Mathf.Abs(playerPos.y - enemyPos.y) >= 8f) //If the y distance is too far apart, patrol
         {
             currentState = State.Patrolling;
             //print("I'm idling!");

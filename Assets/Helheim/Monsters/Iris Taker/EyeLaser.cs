@@ -29,7 +29,7 @@ public class EyeLaser : MonoBehaviour {
 
     private void Start()
     {
-        Invoke("Suicide", .5f);
+        Invoke("Suicide", .35f);
     }
 
     private void Suicide()
