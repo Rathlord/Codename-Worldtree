@@ -34,6 +34,7 @@ public class PlayerController : MonoBehaviour {
     bool grounded;
     [SerializeField] float enemyCollisionMagnitude = 200f;
     public bool dead = false;
+    public float iFrameDuration = .7f;
 
     //CONTROLS//
     public bool freezeControls = false;
@@ -311,6 +312,7 @@ public class PlayerController : MonoBehaviour {
 
     public void TakeDamage(float healthChange) // called from other scripts to change character health. Checks against Hryms and armor.
     {
+        StartCoroutine("Invulnerable"); // Took damage, get your iFrames
         if (hrymsCharges > 0)
         {
             if (hrymsTempCharges / (11 - hrymsCharges) >= 1)
@@ -386,6 +388,15 @@ public class PlayerController : MonoBehaviour {
     }
 
     ///// COLLISION BEHAVIOR /////
+
+    IEnumerator Invulnerable()
+    {
+        print("iFrame start");
+        gameObject.layer = 11;
+        yield return new WaitForSeconds(iFrameDuration);
+        gameObject.layer = 10;
+        print("iFrame finish");
+    }
 
     private void OnCollisionStay2D(Collision2D collision) //Allow player to jump if they're on a floor
     {

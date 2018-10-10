@@ -22,7 +22,7 @@ GameObject:
   - component: {fileID: 212988431921317712}
   - component: {fileID: 61925108154551140}
   - component: {fileID: 114887625833729638}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: EyeLaser
   m_TagString: Untagged
   m_Icon: {fileID: 0}
