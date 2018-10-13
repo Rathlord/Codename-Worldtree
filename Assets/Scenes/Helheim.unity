@@ -564,6 +564,21 @@ Prefab:
       propertyPath: m_Name
       value: IrisTaker (17)
       objectReference: {fileID: 0}
+    - target: {fileID: 212246355098543644, guid: a107d9cabdcbb4014ad816778765dbf8,
+        type: 2}
+      propertyPath: m_Color.r
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212246355098543644, guid: a107d9cabdcbb4014ad816778765dbf8,
+        type: 2}
+      propertyPath: m_Color.g
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 212246355098543644, guid: a107d9cabdcbb4014ad816778765dbf8,
+        type: 2}
+      propertyPath: m_Color.b
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a107d9cabdcbb4014ad816778765dbf8, type: 2}
   m_IsPrefabAsset: 0

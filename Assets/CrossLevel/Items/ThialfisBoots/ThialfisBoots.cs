@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpeedBoots : ItemParent {
+public class ThialfisBoots : ItemParent {
 
 
     public override void ItemActions()

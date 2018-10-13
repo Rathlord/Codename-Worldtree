@@ -139,6 +139,7 @@ MonoBehaviour:
   rigidBody: {fileID: 50920322699036264}
   Beam: {fileID: 1507293057329392, guid: d942aec40ad21451eb91bca4ebc7a575, type: 2}
   attackLocation: {fileID: 4317370729299506}
+  _SpriteRenderer: {fileID: 212246355098543644}
 --- !u!212 &212246355098543644
 SpriteRenderer:
   m_ObjectHideFlags: 1
