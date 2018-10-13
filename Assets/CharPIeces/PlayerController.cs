@@ -52,8 +52,18 @@ public class PlayerController : MonoBehaviour {
     public float ability2Damage;
     public float ability3Damage;
     public float ability4Damage;
+    public float ability1Cooldown = 1f;
+    public float ability2Cooldown = 1f;
+    public float ability3Cooldown = 1f;
+    public float ability4Cooldown = 1f;
+    public bool ability1Up = true;
+    public bool ability2Up = true;
+    public bool ability3Up = true;
+    public bool ability4Up = true;
 
     //ITEMVARIABLES//
+    public bool activeItemUp = true;
+    public float activeItemCooldown = 1f;
     public int fafnirCharges;
     public int hrymsCharges;
     public int hrymsTempCharges;
@@ -68,7 +78,7 @@ public class PlayerController : MonoBehaviour {
     ///// SETUP /////
 
 
-    void Start () 
+    public virtual void Start () 
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
@@ -165,23 +175,69 @@ public class PlayerController : MonoBehaviour {
     {
         if (CrossPlatformInputManager.GetButtonDown("Fire1"))
         {
-            AbilityOne();
+            if (ability1Up == true) // if it's off cooldown, use the ability, put it on cooldown
+            {
+                AbilityOne();
+                ability1Up = false;
+                Invoke("AbilityOneCooldown", ability1Cooldown);
+            }
+            else // if it's on cooldown, do nothing
+            {
+                return;
+            }
         }
         if (CrossPlatformInputManager.GetButtonDown("Fire2"))
         {
-            AbilityTwo();
+            if (ability2Up == true) // if it's off cooldown, use the ability, put it on cooldown
+            {
+                AbilityTwo();
+                ability2Up = false;
+                Invoke("AbilityTwoCooldown", ability2Cooldown);
+            }
+            else // if it's on cooldown, do nothing
+            {
+                return;
+            }
         }
         if (CrossPlatformInputManager.GetButtonDown("Fire3"))
         {
-            AbilityThree();
+            if (ability3Up == true) // if it's off cooldown, use the ability, put it on cooldown
+            {
+                AbilityThree();
+                ability3Up = false;
+                Invoke("AbilityThreeCooldown", ability3Cooldown);
+            }
+            else // if it's on cooldown, do nothing
+            {
+                return;
+            }
         }
         if (CrossPlatformInputManager.GetButtonDown("Fire4"))
         {
-            AbilityFour();
+            if (ability4Up == true) // if it's off cooldown, use the ability, put it on cooldown
+            {
+                AbilityFour();
+                ability4Up = false;
+                Invoke("AbilityFourCooldown", ability4Cooldown);
+            }
+            else // if it's on cooldown, do nothing
+            {
+                return;
+            }
         }
         if (CrossPlatformInputManager.GetButtonDown("ActiveItem"))
         {
-            ActivatedItemBehavior.instance.ActivateItem(); // Use the activated item
+            if (activeItemUp == true) // if it's off cooldown, use the ability, put it on cooldown
+            {
+                ActivatedItemBehavior.instance.ActivateItem(); // Use the activated item
+                activeItemUp = false;
+                Invoke("ActiveItemCooldown", activeItemCooldown);
+            }
+            else // if it's on cooldown, do nothing
+            {
+                return;
+            }
+
         }
         if (CrossPlatformInputManager.GetButtonDown("UseItem"))
         {
@@ -189,9 +245,35 @@ public class PlayerController : MonoBehaviour {
         }
     }
 
+    void AbilityOneCooldown()
+    {
+        ability1Up = true;
+    }
+
+    void AbilityTwoCooldown()
+    {
+        ability2Up = true;
+    }
+
+    void AbilityThreeCooldown()
+    {
+        ability3Up = true;
+    }
+
+    void AbilityFourCooldown()
+    {
+        ability4Up = true;
+    }
+
+    void ActiveItemCooldown()
+    {
+        activeItemUp = true;
+    }
+    
+
     public virtual void AbilityOne()
     {
-        print("This is the wrong thing");
+        
     }
 
     public virtual void AbilityTwo()
