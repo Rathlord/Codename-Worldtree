@@ -5,7 +5,7 @@ using UnityStandardAssets.CrossPlatformInput;
 
 public class Wrath : PlayerController
 {
-
+    Animator animator;
 
     [SerializeField] GameObject daggerToThrow; // The projectile to be fired
     [SerializeField] Transform daggerPosition; // The position of said projectile
@@ -21,11 +21,13 @@ public class Wrath : PlayerController
     public override void Start()
     {
         base.Start();
+        animator = GetComponent<Animator>();
         ability1Cooldown = .45f;
     }
 
     public override void AbilityOne()
     {
+        animator.SetTrigger("WrathAttack");
         GameObject thisDagger = Instantiate(daggerToThrow, daggerPosition);
         thisDagger.transform.parent = projectileHolster.transform;
     }

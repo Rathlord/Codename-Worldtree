@@ -178,7 +178,7 @@ public class PlayerController : MonoBehaviour
         {
             if (ability1Up == true) // if it's off cooldown, use the ability, put it on cooldown
             {
-                AbilityOne();
+                Invoke("AbilityOne", .2f); // Invoking it at a delay to help it line up with animation?
                 ability1Up = false;
                 Invoke("AbilityOneCooldown", ability1Cooldown);
             }
