@@ -23,8 +23,9 @@ GameObject:
   - component: {fileID: 61932090291047376}
   - component: {fileID: 50749161674330368}
   - component: {fileID: 114944863997150624}
+  - component: {fileID: 95904777583950196}
   m_Layer: 9
-  m_Name: Dagger Projectile
+  m_Name: Fireball Projectile
   m_TagString: Ability1
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -36,13 +37,13 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1829199243437778}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0.7071068, w: 0.7071068}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.0912, y: 0.0912, z: 4.561312}
+  m_LocalScale: {x: 1.5, y: 1.5, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 90}
 --- !u!50 &50749161674330368
 Rigidbody2D:
   serializedVersion: 4
@@ -75,19 +76,37 @@ BoxCollider2D:
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.12471342, y: 0}
+  m_Offset: {x: -0.016036006, y: -0.0057478696}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 0.2, y: 0.2}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.7529044, y: 4}
+  m_Size: {x: 0.11589813, y: 0.08209723}
   m_EdgeRadius: 0
+--- !u!95 &95904777583950196
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1829199243437778}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: aea199a36d7d6934984ef1603dbdf562, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!114 &114944863997150624
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -100,7 +119,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidBody: {fileID: 50749161674330368}
-  projectileSpeed: 40
+  projectileSpeed: 30
   destroyAfterTime: 3
 --- !u!212 &212536737932449302
 SpriteRenderer:
@@ -137,7 +156,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 62f800a36edfc49b98a4c5a4ccb1ed1c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 29076c50d3bc8604a9fd5050adc00af1, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

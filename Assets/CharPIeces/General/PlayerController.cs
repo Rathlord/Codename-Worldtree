@@ -6,7 +6,8 @@ using UnityEngine.Events;
 using UnityEngine.UI;
 using UnityStandardAssets.CrossPlatformInput;
 
-public class PlayerController : MonoBehaviour {
+public class PlayerController : MonoBehaviour
+{
 
     //GAMEOBJECTS//
     public static PlayerController instance;
@@ -78,14 +79,14 @@ public class PlayerController : MonoBehaviour {
     ///// SETUP /////
 
 
-    public virtual void Start () 
+    public virtual void Start()
     {
         rigidBody = GetComponent<Rigidbody2D>();
         rigidBody.freezeRotation = true;
         currentHealth = healthMaximum;
         print("I'm at least starting right?");
         tempJumpCharges = bonusJumpCharges; //Give the player an initial jump charge
-	}
+    }
 
 
     private void Awake()
@@ -269,11 +270,11 @@ public class PlayerController : MonoBehaviour {
     {
         activeItemUp = true;
     }
-    
+
 
     public virtual void AbilityOne()
     {
-        
+
     }
 
     public virtual void AbilityTwo()
@@ -304,25 +305,25 @@ public class PlayerController : MonoBehaviour {
     }
 
     private void Jumping()
-     {
-         bool jump = CrossPlatformInputManager.GetButtonDown("Jump");
+    {
+        bool jump = CrossPlatformInputManager.GetButtonDown("Jump");
 
-         if (jump == true && grounded == true && dead == false)
-         {
+        if (jump == true && grounded == true && dead == false)
+        {
             SFXPlayer.instance.PlayJump();
-            rigidBody.velocity = Vector2.up * (baseJumpVelocity+ bonusFlatJumpVelocity);
-         }
-         else if (jump == true && tempJumpCharges > 0 && dead == false)
-         {
+            rigidBody.velocity = Vector2.up * (baseJumpVelocity + bonusFlatJumpVelocity);
+        }
+        else if (jump == true && tempJumpCharges > 0 && dead == false)
+        {
             SFXPlayer.instance.PlayJump();
             rigidBody.velocity = Vector2.up * (baseJumpVelocity + bonusFlatJumpVelocity);
             tempJumpCharges--;
-         }
+        }
         else
         {
             return;
         }
-     } 
+    }
 
     private void HorizontalMovement()
     {
@@ -337,7 +338,7 @@ public class PlayerController : MonoBehaviour {
             facing = "left";
         }
 
-        float horizontalMovement = xThrow * ((baseMoveSpeed + bonusFlatMoveSpeed) * bonusMultMoveSpeed)* Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
+        float horizontalMovement = xThrow * ((baseMoveSpeed + bonusFlatMoveSpeed) * bonusMultMoveSpeed) * Time.fixedDeltaTime; // set horizontal movement equal to horizontal throw * speed factor * time.deltatime to account for framerate
 
         if (freezeControls == false)
         {
@@ -455,7 +456,7 @@ public class PlayerController : MonoBehaviour {
         else
         {
             currentHealth = currentHealth + fafnirCharges;
-            healthMaximum = healthMaximum + fafnirCharges; 
+            healthMaximum = healthMaximum + fafnirCharges;
         }
     }
 
