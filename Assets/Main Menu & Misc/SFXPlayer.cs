@@ -5,15 +5,22 @@ using UnityEngine.SceneManagement;
 
 public class SFXPlayer : MonoBehaviour {
 
-    //I'm not an sfx player yet, I'm just a copy of the music player. Whoops.
-
     public static SFXPlayer instance;
 
     AudioSource audioSource;
 
+    [SerializeField] AudioClip empty; // Use this as template
     [SerializeField] AudioClip jump;
+    [SerializeField] AudioClip wrathFireball;
+    [SerializeField] AudioClip chestOpen;
+    [SerializeField] AudioClip jumpPad;
+    [SerializeField] AudioClip tyrfing;
+    [SerializeField] AudioClip irisTakerAttack;
 
-    [SerializeField] AudioClip potato;
+    private void Start()
+    {
+        audioSource = GetComponent<AudioSource>();
+    }
 
     private void Awake()
     {
@@ -32,15 +39,45 @@ public class SFXPlayer : MonoBehaviour {
         instance = this;
     }
 
+    /// Below are functions for sounds to be called from other classes ///
+
+
+
+    public void PlaySound() // Template- rename and replace clip
+    {
+        audioSource.PlayOneShot(empty);
+    }
+
+    public void PlayIrisTakerAttack() // Template- rename and replace clip
+    {
+        audioSource.PlayOneShot(irisTakerAttack);
+    }
+
+    public void PlayTyrfing()
+    {
+        audioSource.PlayOneShot(tyrfing);
+    }
+
+    public void PlayJumpPad()
+    {
+        audioSource.PlayOneShot(jumpPad);
+    }
+
+    public void PlayChestOpen()
+    {
+        audioSource.PlayOneShot(chestOpen);
+    }
+
+    public void PlayWrathFireball()
+    {
+        audioSource.PlayOneShot(wrathFireball);
+    }
+
     public void PlayJump() // I'm almost certain this will work
     {
         audioSource.PlayOneShot(jump);
     }
 
-    private void Start()
-    {
-        audioSource = GetComponent<AudioSource>();
-    }
 
 
 

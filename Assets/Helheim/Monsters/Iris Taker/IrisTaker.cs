@@ -22,6 +22,7 @@ public class IrisTaker : EnemyBehavior {
     {
         _SpriteRenderer.color = new Color(255, 255, 255, 255);
         Instantiate(Beam, attackLocation);
+        SFXPlayer.instance.PlayIrisTakerAttack();
     }
 
 }

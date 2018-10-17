@@ -180,6 +180,7 @@ public class PlayerController : MonoBehaviour
             {
                 Invoke("AbilityOne", .2f); // Invoking it at a delay to help it line up with animation?
                 ability1Up = false;
+                SFXPlayer.instance.PlayWrathFireball();
                 Invoke("AbilityOneCooldown", ability1Cooldown);
             }
             else // if it's on cooldown, do nothing

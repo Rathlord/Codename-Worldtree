@@ -7,16 +7,26 @@ public class ChestController : MonoBehaviour
 
     GameObject ItemTemplate;
     [SerializeField] Transform itemSpawnLocation;
+    [SerializeField] Sprite openChest;
+    SpriteRenderer spriteRenderer;
+    BoxCollider2D boxCollider;
 
     int IOnlyGiveOneItem = 1;
 
+    private void Awake()
+    {
+        spriteRenderer = GetComponent<SpriteRenderer>();
+        boxCollider = GetComponent<BoxCollider2D>();
+    }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.tag == "Player")
         {
             SpawnItemItem();
-            Object.Destroy(gameObject);
+            spriteRenderer.sprite = openChest;
+            boxCollider.enabled = false;
+            SFXPlayer.instance.PlayChestOpen();
         }
 
     }

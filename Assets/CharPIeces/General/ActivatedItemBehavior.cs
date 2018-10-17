@@ -47,12 +47,14 @@ public class ActivatedItemBehavior : MonoBehaviour {
 
     void DoTyrfing() // Do thing associated with picking up Tyrfing
     {
+        print("Tyrfing activated");
         PlayerController.instance.bonusMultAttackDamage+=1;
         int outcome = Random.Range(0, 10);
         if (outcome == 0)
         {
             PlayerController.instance.currentHealth = PlayerController.instance.currentHealth * .3f;
         }
+        SFXPlayer.instance.PlayTyrfing();
         Invoke("EndTyrfing", 7f);
     }
 

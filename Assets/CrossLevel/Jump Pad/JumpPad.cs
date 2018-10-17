@@ -13,6 +13,7 @@ public class JumpPad : MonoBehaviour {
 
         if (collision.gameObject.tag == "Player")
         {
+            SFXPlayer.instance.PlayJumpPad();
             playerController.ForcedMovement(jumpPadPower, 0f);
         }
 
