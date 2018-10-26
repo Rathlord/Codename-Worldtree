@@ -6,15 +6,15 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/MainMenu.unity
+    path: Assets/_Scenes/MainMenu.unity
     guid: 2cda990e2423bbf4892e6590ba056729
   - enabled: 1
-    path: Assets/Scenes/Helheim.unity
+    path: Assets/_Scenes/Helheim.unity
     guid: 33676c3ba1254fc49a91124776a4f05c
   - enabled: 1
-    path: Assets/Scenes/OptionsMenu.unity
+    path: Assets/_Scenes/OptionsMenu.unity
     guid: e03e6b4934ae5a6428c5f0967d0cc6ec
   - enabled: 1
-    path: Assets/Scenes/Unlockables.unity
+    path: Assets/_Scenes/Unlockables.unity
     guid: 0f745aaae63b33945b54209a3f556c2b
   m_configObjects: {}

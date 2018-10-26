@@ -24,8 +24,8 @@ public class SFXPlayer : MonoBehaviour {
 
     private void Awake()
     {
-        int numberOfSFXPlayer = FindObjectsOfType<MusicPlayer>().Length;
-        print("Number of music players = " + numberOfSFXPlayer);
+        int numberOfSFXPlayer = FindObjectsOfType<SFXPlayer>().Length;
+        print("Number of SFX players = " + numberOfSFXPlayer);
 
         if (numberOfSFXPlayer > 1)
         {
@@ -48,7 +48,7 @@ public class SFXPlayer : MonoBehaviour {
         audioSource.PlayOneShot(empty);
     }
 
-    public void PlayIrisTakerAttack() // Template- rename and replace clip
+    public void PlayIrisTakerAttack()
     {
         audioSource.PlayOneShot(irisTakerAttack);
     }
@@ -73,7 +73,7 @@ public class SFXPlayer : MonoBehaviour {
         audioSource.PlayOneShot(wrathFireball);
     }
 
-    public void PlayJump() // I'm almost certain this will work
+    public void PlayJump()
     {
         audioSource.PlayOneShot(jump);
     }
