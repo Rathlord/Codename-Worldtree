@@ -768,6 +768,11 @@ Prefab:
       propertyPath: projectileHolster
       value: 
       objectReference: {fileID: 1470802785}
+    - target: {fileID: 114232937390920512, guid: 8f9413c6859f1f043b6bef3d1c569998,
+        type: 2}
+      propertyPath: fallMultiplier
+      value: 20
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8f9413c6859f1f043b6bef3d1c569998, type: 2}
   m_IsPrefabAsset: 0

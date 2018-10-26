@@ -112,13 +112,9 @@ public class PlayerController : MonoBehaviour
         UpdateAbilityDamage();
         Controls();
         CalculateAttackDamage();
-    }
-
-    void FixedUpdate()
-    {
-        HorizontalMovement();
         Jumping();
         BetterJumping();
+        HorizontalMovement();
     }
 
     private void LateUpdate()
