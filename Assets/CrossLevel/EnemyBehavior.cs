@@ -8,6 +8,7 @@ public class EnemyBehavior : MonoBehaviour
     public static EnemyBehavior instance;
 
     [SerializeField] float enemyHealth = 40f;
+    [SerializeField] float jumpPadPower = 1000f;
 
     [SerializeField] enum State { ApproachingLeft, ApproachingRight, Attacking, Patrolling, Falling };
     State currentState;
@@ -23,8 +24,6 @@ public class EnemyBehavior : MonoBehaviour
     [SerializeField] Vector3 facingRight = new Vector3(0f, 0f, 0f);
 
     bool isPatrolling = false;
-
-    // public PlayerController playerController;
 
     [SerializeField] string facing;
 
@@ -132,6 +131,14 @@ public class EnemyBehavior : MonoBehaviour
         {
             float damage = PlayerController.instance.ability4Damage;
             EnemyTakeDamage(damage);
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag == "JumpPad")
+        {
+            rigidBody.AddForce(Vector2.up * jumpPadPower, ForceMode2D.Impulse);
         }
     }
 

@@ -39,7 +39,7 @@ public class PlayerController : MonoBehaviour
 
     //CONTROLS//
     public bool freezeControls = false;
-    float xThrow;
+    public float xThrow;
     [SerializeField] float fallMultiplier = 13f;
     [SerializeField] float lowJumpMultiplier = 5f;
 

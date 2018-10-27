@@ -677,6 +677,22 @@ PrefabInstance:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4855363877574198, guid: c6215d7ff161c274ea08f243e3d71fda, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1699065255266860, guid: c6215d7ff161c274ea08f243e3d71fda, type: 3}
+      propertyPath: m_Name
+      value: JumpPad
+      objectReference: {fileID: 0}
     - target: {fileID: 114522740693020046, guid: c6215d7ff161c274ea08f243e3d71fda,
         type: 3}
       propertyPath: playerController
