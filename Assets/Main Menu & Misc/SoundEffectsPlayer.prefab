@@ -1,21 +1,11 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &100100000
-Prefab:
-  m_ObjectHideFlags: 1
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications: []
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 1130965102331556}
-  m_IsPrefabAsset: 1
 --- !u!1 &1130965102331556
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4672924192451998}
@@ -30,22 +20,45 @@ GameObject:
   m_IsActive: 1
 --- !u!4 &4672924192451998
 Transform:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130965102331556}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &114847740950267010
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1130965102331556}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b4930c8144dc41c1b0f6af6853383f5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  empty: {fileID: 0}
+  jump: {fileID: 0}
+  wrathFireball: {fileID: 8300000, guid: 0f0c8772d1a9c25479dfd7972e3090ef, type: 3}
+  chestOpen: {fileID: 8300000, guid: 1b735f22c197f9446bc8b541eef1eaa8, type: 3}
+  jumpPad: {fileID: 8300000, guid: 17f999b22b23aa04ebeffe2a716f9f7e, type: 3}
+  tyrfing: {fileID: 8300000, guid: 237893312f101634ca462fd4e975cc21, type: 3}
+  irisTakerAttack: {fileID: 8300000, guid: 72479c05c208e5546a7fdcadfe1fa728, type: 3}
+  itemPickup: {fileID: 8300000, guid: 1be270c0da37f774f9c9ca692a8d4e1b, type: 3}
+  monsterDeath: {fileID: 8300000, guid: 4ca6345de3ce3c147a33d2d860240df0, type: 3}
 --- !u!82 &82713235651783678
 AudioSource:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1130965102331556}
   m_Enabled: 1
   serializedVersion: 4
@@ -136,21 +149,3 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &114847740950267010
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1130965102331556}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8b4930c8144dc41c1b0f6af6853383f5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  empty: {fileID: 0}
-  jump: {fileID: 0}
-  wrathFireball: {fileID: 8300000, guid: 0f0c8772d1a9c25479dfd7972e3090ef, type: 3}
-  chestOpen: {fileID: 8300000, guid: 1b735f22c197f9446bc8b541eef1eaa8, type: 3}
-  jumpPad: {fileID: 8300000, guid: 17f999b22b23aa04ebeffe2a716f9f7e, type: 3}
-  tyrfing: {fileID: 8300000, guid: 237893312f101634ca462fd4e975cc21, type: 3}
-  irisTakerAttack: {fileID: 8300000, guid: 72479c05c208e5546a7fdcadfe1fa728, type: 3}

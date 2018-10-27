@@ -16,6 +16,8 @@ public class SFXPlayer : MonoBehaviour {
     [SerializeField] AudioClip jumpPad;
     [SerializeField] AudioClip tyrfing;
     [SerializeField] AudioClip irisTakerAttack;
+    [SerializeField] AudioClip itemPickup;
+    [SerializeField] AudioClip monsterDeath;
 
     private void Start()
     {
@@ -46,6 +48,16 @@ public class SFXPlayer : MonoBehaviour {
     public void PlaySound() // Template- rename and replace clip
     {
         audioSource.PlayOneShot(empty);
+    }
+
+    public void PlayMonsterDeath()
+    {
+        audioSource.PlayOneShot(monsterDeath);
+    }
+
+    public void PlayItempickup() 
+    {
+        audioSource.PlayOneShot(itemPickup);
     }
 
     public void PlayIrisTakerAttack()

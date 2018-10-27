@@ -92,6 +92,7 @@ public class EnemyBehavior : MonoBehaviour
     {
         if (enemyHealth <= 0)
         {
+            SFXPlayer.instance.PlayMonsterDeath();
             Destroy(gameObject);
         }
         EnemyFacing();

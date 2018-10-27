@@ -7,6 +7,7 @@ public class ItemParent : MonoBehaviour {
     [SerializeField] Vector3 bounceAmount = new Vector3(0.0f,0.5f, 0.0f);
     [SerializeField] bool goingUp = true;
 
+
     Vector3 thisTransform;
     Vector3 highPoint;
     Vector3 lowPoint;
@@ -25,12 +26,13 @@ public class ItemParent : MonoBehaviour {
             ItemActions();
             StopAllCoroutines();
             Object.Destroy(gameObject);
+            SFXPlayer.instance.PlayItempickup();
         }
-        else
+        /*else
         {
             print("I tried to proc twice");
             return;
-        }
+        }*/
     }
 
     public virtual void ItemActions()
