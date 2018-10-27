@@ -117,6 +117,7 @@ public class PlayerController : MonoBehaviour
         HorizontalMovement();
     }
 
+
     private void LateUpdate()
     {
         DeathCheck();
