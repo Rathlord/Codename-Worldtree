@@ -32,7 +32,7 @@ public class PlayerController : MonoBehaviour
     public float bonusFlatAttackDamage;
     public float bonusMultAttackDamage = 1;
     public float armor;
-    bool grounded;
+    public bool grounded;
     [SerializeField] float enemyCollisionMagnitude = 200f;
     public bool dead = false;
     public float iFrameDuration = .7f;

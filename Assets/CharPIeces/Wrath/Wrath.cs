@@ -16,8 +16,8 @@ public class Wrath : PlayerController
     public override void Update()
     {
         base.Update();
-        animator.SetFloat("Walking", xThrow);
-        print(animator.GetFloat("Walking"));
+        animator.SetFloat("MoveSpeed", Mathf.Abs(xThrow));
+        animator.SetBool("Grounded", grounded);
     }
 
     public override void Start()

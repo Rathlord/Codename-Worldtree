@@ -111,6 +111,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             // print("Collided with player should do damage");
             PlayerController.instance.TakeDamage(10);
+            PlayerController.instance.ForcedMovement(-30, 35);
         }
         if (collision.gameObject.tag == "Ability1")
         {
@@ -131,6 +132,15 @@ public class EnemyBehavior : MonoBehaviour
         {
             float damage = PlayerController.instance.ability4Damage;
             EnemyTakeDamage(damage);
+        }
+    }
+
+    private void OnCollisionStay2D(Collision2D collision)
+    {
+        if (collision.gameObject.tag == "Player")
+        {
+            print("GET OFF ME!");
+            PlayerController.instance.ForcedMovement(100, -75);
         }
     }
 

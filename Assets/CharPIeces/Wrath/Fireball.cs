@@ -6,7 +6,7 @@ public class Fireball : MonoBehaviour {
 
     [SerializeField] Rigidbody2D rigidBody;
     [SerializeField] float projectileSpeed = 30f;
-    [SerializeField] float destroyAfterTime = 3f;
+    [SerializeField] float destroyAfterTime = 1.5f;
 
     void Awake()
     {
