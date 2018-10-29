@@ -5,23 +5,25 @@ using UnityEngine;
 public class IrisTaker : EnemyBehavior {
 
     [SerializeField] GameObject Beam;
-    [SerializeField] Transform attackLocation;
-    [SerializeField] SpriteRenderer _SpriteRenderer;
+    Animator animator;
 
-    Color PreAttackColor = new Color(255, 0, 0);
 
-    // Color change is a temporary measure while waiting for animations TODO replace with animation
+    public override void Awake()
+    {
+        base.Awake();
+        animator = GetComponent<Animator>();
+    }
 
     public override void DoAttack()
     {
-        _SpriteRenderer.color = PreAttackColor;
-        Invoke("EyeBeam", .5f);
+        animator.SetTrigger("IT_Attacking");
+        Invoke("EyeBeam", .7f);
     }
 
     void EyeBeam()
     {
-        _SpriteRenderer.color = new Color(255, 255, 255, 255);
-        Instantiate(Beam, attackLocation);
+        print("I should be setting the beam active");
+        Beam.SetActive(true);
         SFXPlayer.instance.PlayIrisTakerAttack();
     }
 

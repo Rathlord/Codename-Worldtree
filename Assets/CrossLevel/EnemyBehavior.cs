@@ -32,7 +32,7 @@ public class EnemyBehavior : MonoBehaviour
     bool poisoned;
 
 
-    private void Awake()
+    public virtual void Awake()
     {
         instance = this;
     }

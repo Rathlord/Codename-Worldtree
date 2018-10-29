@@ -27,13 +27,14 @@ public class EyeLaser : MonoBehaviour {
         }
     }
 
-    private void Start()
+    private void OnEnable()
     {
-        Invoke("Suicide", .35f);
+        Invoke("Disable", .35f);
     }
 
-    private void Suicide()
+    private void Disable()
     {
-        Destroy(gameObject);
+        didDamage = false;
+        gameObject.SetActive(false);
     }
 }
