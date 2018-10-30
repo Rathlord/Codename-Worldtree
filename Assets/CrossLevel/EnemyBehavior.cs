@@ -45,6 +45,12 @@ public class EnemyBehavior : MonoBehaviour
         rigidBody.freezeRotation = true;
     }
 
+    float EntropyValue()
+    {
+        float value = Random.Range(-.75f, .75f);
+        return value;
+    }
+
     void EnemyFacing() // checks facing of enemy
     {
         if (facing == "right")
@@ -281,7 +287,7 @@ public class EnemyBehavior : MonoBehaviour
         {
             currentState = State.Attacking;
             //print("I'm attacking!");
-            yield return new WaitForSeconds(.75f);
+            yield return new WaitForSeconds(1f + EntropyValue());
         }
         else if (Mathf.Abs(playerPos.x - enemyPos.x) <= 35f) //If the x distance is close enough, chase the player in the appropriate direction
         {
@@ -297,7 +303,7 @@ public class EnemyBehavior : MonoBehaviour
                 facing = "right";
                 currentState = State.ApproachingRight;
             }
-            yield return new WaitForSeconds(.3f);
+            yield return new WaitForSeconds(1f + EntropyValue());
         }
         else if (Mathf.Abs(playerPos.x - enemyPos.x) > 35f) //If the enemy is far away from the player, patrol
         {
